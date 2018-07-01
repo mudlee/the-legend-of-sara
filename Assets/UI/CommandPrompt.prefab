@@ -27,7 +27,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1434439166013298
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,7 +43,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1533376111345886
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &114296298944697308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -105,9 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c4635a4f743a1b4cac670be9b704cdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _textGO: {fileID: 1160302690582074}
+  _panelGO: {fileID: 1533376111345886}
   _text: {fileID: 114296298944697308}
-  _notificationHandlerObj: {fileID: 1684800946156610, guid: 6e4702f2d31366645a8ee33ab0f388ce,
-    type: 2}
 --- !u!114 &114493236784080608
 MonoBehaviour:
   m_ObjectHideFlags: 1

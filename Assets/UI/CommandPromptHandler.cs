@@ -2,27 +2,35 @@
 using UnityEngine.UI;
 
 public class CommandPromptHandler : MonoBehaviour {
+    [SerializeField] private GameObject _textGO;
+    [SerializeField] private GameObject _panelGO;
     [SerializeField] private Text _text;
-    [SerializeField] private GameObject _notificationHandlerObj;
     private NotificationHandler _notificationHandler;
     private bool _active;
 
     private void Start()
     {
-        _notificationHandler = _notificationHandlerObj.GetComponent<NotificationHandler>();
+        _notificationHandler = GameObject.FindGameObjectWithTag("NotificationHandler").GetComponent<NotificationHandler>();
+    }
+
+    public bool IsActive()
+    {
+        return _active;
     }
 
     public void Activate()
     {
         _active = true;
-        gameObject.SetActive(true);
+        _textGO.SetActive(true);
+        _panelGO.SetActive(true);
     }
 
     public void Deactivate()
     {
         _text.text = "_";
         _active = false;
-        gameObject.SetActive(false);
+        _textGO.SetActive(false);
+        _panelGO.SetActive(false);
     }
 
     void Update ()

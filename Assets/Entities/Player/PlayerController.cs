@@ -5,13 +5,13 @@ public class PlayerController : MonoBehaviour {
     private Animator _animator;
     private Rigidbody2D _rigidbody;
 
-	void Start ()
+	private void Start ()
     {
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
 	}
-	
-	void Update ()
+
+    private void Update ()
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");

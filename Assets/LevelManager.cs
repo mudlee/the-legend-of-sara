@@ -1,18 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// TODO
-// https://www.dafont.com/windows-command-prompt.font?text=The+Legend+of+Sara&back=bitmap
 public class LevelManager : MonoBehaviour
 {
-    private static bool created = false;
+    [SerializeField] private bool _autoLoadNextLevel;
 
     void Start ()
     {
-        if (!created)
+        if (_autoLoadNextLevel)
         {
-            DontDestroyOnLoad(gameObject);
-            created = true;
+            Invoke("LoadNextLevel", 6);
         }
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 }

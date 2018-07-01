@@ -17,16 +17,13 @@ public class NotificationHandler : MonoBehaviour {
             _notification.SetActive(false);
         }
 
-        if (_queue.Count == 0)
+        if (_queue.Count != 0)
         {
-            return;
+            _notification.SetActive(true);
+            _text.text = _queue.Dequeue();
+            Debug.Log("Showing notification " + _text.text);
+            _messageShownAt = Time.time;
         }
-
-        _notification.SetActive(true);
-        _text.text= _queue.Dequeue();
-        Debug.Log("Showing notification "+_text.text);
-        _messageShownAt = Time.time;
-        return;
 	}
 
     public void ShowNotification(string text)
