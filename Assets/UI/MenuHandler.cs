@@ -6,9 +6,36 @@ public class MenuHandler : MonoBehaviour {
     [SerializeField] private Button _quitButton;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private GameObject _wonLayer;
     [SerializeField] private Logic _logic = Logic.USE_START;
     private LevelManager _levelManager;
     private GameManager _gameManager;
+    private AudioManager _audioManager;
+
+    public void SetActive(bool active)
+    {
+        gameObject.SetActive(active);
+    }
+
+    public bool IsActive()
+    {
+        return gameObject.activeSelf;
+    }
+
+    public void Quit()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
+
+    public void ShowWon()
+    {
+        SetActive(true);
+        _wonLayer.SetActive(true);
+    }
 
     private void Awake()
     {
@@ -27,26 +54,18 @@ public class MenuHandler : MonoBehaviour {
     {
         _levelManager = GameObject.FindObjectOfType<LevelManager>();
         _gameManager = GameObject.FindObjectOfType<GameManager>();
+        _audioManager = GameObject.FindObjectOfType<AudioManager>();
 
         _quitButton.onClick.AddListener(Quit);
-        _startButton.onClick.AddListener(() => _levelManager.LoadNextLevel());
+
+        _startButton.onClick.AddListener(() => {
+            _levelManager.LoadNextLevel();
+            _audioManager.StartAmbientMusic();
+        });
+
         _restartButton.onClick.AddListener(() => {
             SetActive(false);
             _gameManager.Restart();
         });
-    }
-
-    public void SetActive(bool active)
-    {
-        gameObject.SetActive(active);
-    }
-
-    public void Quit()
-    {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
     }
 }

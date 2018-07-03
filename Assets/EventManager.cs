@@ -5,6 +5,9 @@ using UnityEngine;
 public class EventManager : MonoBehaviour {
     public enum Event
     {
+        PLAYER_REACHED_EXIT,
+        GAME_PAUSED,
+        GAME_RESUMED
     };
 
     private Dictionary<Event, UnityEvent> eventDictionary;

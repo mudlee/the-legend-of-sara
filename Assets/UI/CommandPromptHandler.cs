@@ -21,6 +21,7 @@ public class CommandPromptHandler : MonoBehaviour {
     public void Activate()
     {
         _active = true;
+        _text.text = "_";
         _textGO.SetActive(true);
         _panelGO.SetActive(true);
     }

@@ -3,14 +3,17 @@
 public class GameManager : MonoBehaviour {
     public enum RoomBorderTrigger { TRIGGER1, TRIGGER2, TRIGGER3, TRIGGER4, TRIGGER5, TRIGGER6 }
 
+    [SerializeField] GameObject _playerPrefab;
+    [SerializeField] Transform _playerSpawnPosition;
+    private GameObject _player;
     private CommandPromptHandler _commandPromptHandler;
-    private MenuHandler _menu;
-    private bool _menuActive;
+    private MenuHandler _menuHandler;
     private int _currentRoom = 0;
 
     public void Restart()
     {
-        print("RESTART");
+        _player.transform.position = _playerSpawnPosition.position;
+        EventManager.TriggerEvent(EventManager.Event.GAME_RESUMED);
     }
 
     public void RoomBorderCrossed(RoomBorderTrigger trigger)
@@ -43,29 +46,39 @@ public class GameManager : MonoBehaviour {
 
     private void Awake ()
     {
+        EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, () => {
+            _menuHandler.ShowWon();
+        });
+
         _commandPromptHandler = GameObject.FindObjectOfType<CommandPromptHandler>();
-        _menu = GameObject.FindObjectOfType<MenuHandler>();
-        _menu.SetActive(false);
+        _menuHandler = GameObject.FindObjectOfType<MenuHandler>();
+        _menuHandler.SetActive(false);
         RenderSettings.ambientLight = Color.black;
+
+        _player = GameObject.Instantiate(_playerPrefab,_playerSpawnPosition) as GameObject;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyUp(KeyCode.Alpha0) && !_commandPromptHandler.IsActive())
         {
             _commandPromptHandler.Activate();
+            EventManager.TriggerEvent(EventManager.Event.GAME_PAUSED);
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (_commandPromptHandler.IsActive())
             {
                 _commandPromptHandler.Deactivate();
+                EventManager.TriggerEvent(EventManager.Event.GAME_RESUMED);
             }
             else
             {
-                _menuActive = !_menuActive;
-                _menu.SetActive(_menuActive);
+                _menuHandler.SetActive(!_menuHandler.IsActive());
             }
+
+            EventManager.Event gameStateEvent = _menuHandler.IsActive() ? EventManager.Event.GAME_RESUMED : EventManager.Event.GAME_PAUSED;
+            EventManager.TriggerEvent(gameStateEvent);
         }
     }
 
