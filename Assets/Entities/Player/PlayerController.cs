@@ -34,13 +34,13 @@ public class PlayerController : MonoBehaviour {
 
         _rigidbody.velocity = new Vector2(horizontal * SPEED, vertical * SPEED);
 
-        if(horizontal > 0 || vertical > 0)
+        if(horizontal != 0 || vertical != 0)
         {
-            _audioManager.Play(AudioManager.EffectType.STEP, AudioManager.Source.PRIMARY);
+            _audioManager?.Play(AudioManager.EffectType.STEP, AudioManager.Source.PRIMARY, true);
         }
         else
         {
-            _audioManager.Stop(AudioManager.Source.PRIMARY);
+            _audioManager?.Stop(AudioManager.Source.PRIMARY);
         }
 	}
 

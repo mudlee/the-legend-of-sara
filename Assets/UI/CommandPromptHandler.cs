@@ -5,12 +5,12 @@ public class CommandPromptHandler : MonoBehaviour {
     [SerializeField] private GameObject _textGO;
     [SerializeField] private GameObject _panelGO;
     [SerializeField] private Text _text;
-    private NotificationHandler _notificationHandler;
+    private GameManager _gameManager;
     private bool _active;
 
     private void Start()
     {
-        _notificationHandler = GameObject.FindGameObjectWithTag("NotificationHandler").GetComponent<NotificationHandler>();
+        _gameManager = GameObject.FindObjectOfType<GameManager>();
     }
 
     public bool IsActive()
@@ -44,7 +44,6 @@ public class CommandPromptHandler : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.KeypadEnter) || Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Return))
         {
             RunCommand();
-            _text.text = "_";
             return;
         }
 
@@ -78,6 +77,6 @@ public class CommandPromptHandler : MonoBehaviour {
             return;
         }
         print(string.Format("Running command: '{0}'",command));
-        _notificationHandler.ShowNotification("YO");
+        _gameManager.RunCommand(command);
     }
 }

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
     private GameObject _player;
     private CommandPromptHandler _commandPromptHandler;
     private MenuHandler _menuHandler;
+    private NotificationHandler _notificationHandler;
     private int _currentRoom = 0;
 
     public void Restart()
@@ -44,12 +45,35 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void RunCommand(string command)
+    {
+        _commandPromptHandler.Deactivate();
+        EventManager.TriggerEvent(EventManager.Event.GAME_RESUMED);
+
+        if (_currentRoom == 2)
+        {
+            if(command == "42")
+            {
+                EventManager.TriggerEvent(EventManager.Event.ROOM2_DOOR_QUESTION_ANSWERED);
+            }
+            else
+            {
+                _notificationHandler.ShowNotification("Wrong answer.");
+            }
+        }
+        else
+        {
+            _notificationHandler.ShowNotification("Commands are available at specific locations.");
+        }
+    }
+
     private void Awake ()
     {
         EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, () => {
             _menuHandler.ShowWon();
         });
 
+        _notificationHandler = GameObject.FindGameObjectWithTag("NotificationHandler").GetComponent<NotificationHandler>();
         _commandPromptHandler = GameObject.FindObjectOfType<CommandPromptHandler>();
         _menuHandler = GameObject.FindObjectOfType<MenuHandler>();
         _menuHandler.SetActive(false);
@@ -70,14 +94,13 @@ public class GameManager : MonoBehaviour {
             if (_commandPromptHandler.IsActive())
             {
                 _commandPromptHandler.Deactivate();
-                EventManager.TriggerEvent(EventManager.Event.GAME_RESUMED);
             }
             else
             {
                 _menuHandler.SetActive(!_menuHandler.IsActive());
             }
 
-            EventManager.Event gameStateEvent = _menuHandler.IsActive() ? EventManager.Event.GAME_RESUMED : EventManager.Event.GAME_PAUSED;
+            EventManager.Event gameStateEvent = _menuHandler.IsActive() ? EventManager.Event.GAME_PAUSED : EventManager.Event.GAME_RESUMED;
             EventManager.TriggerEvent(gameStateEvent);
         }
     }

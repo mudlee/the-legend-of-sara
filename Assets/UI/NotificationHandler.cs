@@ -7,7 +7,7 @@ public class NotificationHandler : MonoBehaviour {
     [SerializeField] private GameObject _notification;
     private Queue<string> _queue = new Queue<string>();
     private float _messageShownAt;
-    private const float MESSAGE_TIME = 3f;
+    private const float MESSAGE_TIME = 5f;
 
     private void Update ()
     {

@@ -2,23 +2,22 @@
 
 public class AudioManager : MonoBehaviour {
     public enum Source { PRIMARY, SECONDARY }
-    public enum EffectType
-    {
-        STEP
-    }
+    public enum EffectType { _NONE, STEP, DOOR_OPEN }
 
     [SerializeField] private AudioClip _menuClip;
     [SerializeField] private AudioClip _ambientClip;
     [SerializeField] private AudioClip _stepClip;
+    [SerializeField] private AudioClip _doorOpenClip;
     [SerializeField] private AudioSource _sourceMainMusic;
     [SerializeField] private AudioSource _sourceEffectsPrimary;
+    [SerializeField] private AudioSource _sourceEffectsSecondary;
     private static bool CREATED = false;
     private float _originalVolume;
     private const float FADE_TIME = 2f;
     private float _fadeStart;
     private bool _fadingToAmbient;
-    private EffectType _clipOnPrimary;
-    private EffectType _clipOnSecondary;
+    private EffectType _activeClipPrimary;
+    private EffectType _activeClipSecondary;
 
     public void StartAmbientMusic()
     {
@@ -26,30 +25,52 @@ public class AudioManager : MonoBehaviour {
         _fadingToAmbient = true;
     }
 
-    public void Play(EffectType type, Source source)
+    public void Play(EffectType type, Source source, bool loop)
     {
-        
         if (
-            (source == Source.PRIMARY &&_clipOnPrimary == type) ||
-            (source == Source.SECONDARY && _clipOnSecondary == type)
+            (source == Source.PRIMARY &&_activeClipPrimary == type) ||
+            (source == Source.SECONDARY && _activeClipSecondary == type)
         )
         {
-            // TODO: that does not work somehow
             return;
         }
-        
-        if (source == Source.PRIMARY)
+
+        AudioClip clip;
+        switch (type)
         {
-            _sourceEffectsPrimary.Stop();
-            _clipOnPrimary = type;
-            _sourceEffectsPrimary.clip = _stepClip; // TODO
-            _sourceEffectsPrimary.Play();
+            case EffectType.STEP:
+                clip = _stepClip;
+                break;
+            case EffectType.DOOR_OPEN:
+                clip = _doorOpenClip;
+                break;
+            default:
+                Debug.LogError(string.Format("Unknown effect type: {0}",type));
+                return;
+        }
+
+        AudioSource player = source == Source.PRIMARY ? _sourceEffectsPrimary : _sourceEffectsSecondary;
+        player.Stop();
+        player.loop = loop;
+        player.clip = clip;
+        player.Play();
+
+        switch (source)
+        {
+            case Source.PRIMARY:
+                _activeClipPrimary = type;
+                break;
+            case Source.SECONDARY:
+                _activeClipSecondary = type;
+                break;
         }
     }
 
     public void Stop(Source source)
     {
+        // TODO
         _sourceEffectsPrimary.Stop();
+        _activeClipPrimary = EffectType._NONE;
     }
 
     private void Awake()
@@ -81,7 +102,6 @@ public class AudioManager : MonoBehaviour {
         
         if((_fadeStart + FADE_TIME) > Time.timeSinceLevelLoad)
         {
-            print(_sourceMainMusic.volume);
             _sourceMainMusic.volume -= 0.2f * Time.deltaTime;
         }
         if (_sourceMainMusic.volume <= 0 || (_fadeStart + FADE_TIME)<Time.timeSinceLevelLoad)

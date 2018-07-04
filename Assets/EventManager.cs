@@ -5,6 +5,7 @@ using UnityEngine;
 public class EventManager : MonoBehaviour {
     public enum Event
     {
+        ROOM2_DOOR_QUESTION_ANSWERED,
         PLAYER_REACHED_EXIT,
         GAME_PAUSED,
         GAME_RESUMED
