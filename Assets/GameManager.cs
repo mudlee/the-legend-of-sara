@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public enum RoomBorderTrigger { TRIGGER1, TRIGGER2, TRIGGER3, TRIGGER4, TRIGGER5, TRIGGER6 }
 
     [SerializeField] Transform _playerSpawnPosition;
+    [SerializeField] private Slider _health;
+    [SerializeField] private Text _score;
     private GameObject _player;
-    private CommandPromptHandler _commandPromptHandler;
-    private MenuHandler _menuHandler;
-    private NotificationHandler _notificationHandler;
+    private UIHandler _uIHandler;
     private int _currentRoom = 0;
 
     public void Restart()
@@ -46,7 +47,7 @@ public class GameManager : MonoBehaviour {
 
     public void RunCommand(string command)
     {
-        _commandPromptHandler.Deactivate();
+        _uIHandler.CommandPrompt.Deactivate();
         EventManager.TriggerEvent(EventManager.Event.GAME_RESUMED);
 
         if (_currentRoom == 2)
@@ -57,49 +58,47 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
-                _notificationHandler.ShowNotification("Wrong answer.");
+                _uIHandler.Notification.ShowNotification("Wrong answer.");
             }
         }
         else
         {
-            _notificationHandler.ShowNotification("Commands are available at specific locations.");
+            _uIHandler.Notification.ShowNotification("Commands are available at specific locations.");
         }
     }
 
     private void Awake ()
     {
         EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, () => {
-            _menuHandler.ShowWon();
+            _uIHandler.EndScreen.ShowWon();
         });
 
         _player = GameObject.FindGameObjectWithTag("Player");
 
-        _notificationHandler = GameObject.FindGameObjectWithTag("NotificationHandler").GetComponent<NotificationHandler>();
-        _commandPromptHandler = GameObject.FindObjectOfType<CommandPromptHandler>();
-        _menuHandler = GameObject.FindObjectOfType<MenuHandler>();
-        _menuHandler.SetActive(false);
+        _uIHandler = GameObject.FindObjectOfType<UIHandler>();
+        _uIHandler.Menu.SetActive(false);
         RenderSettings.ambientLight = Color.black;
     }
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Alpha0) && !_commandPromptHandler.IsActive())
+        if (Input.GetKeyUp(KeyCode.Alpha0) && !_uIHandler.CommandPrompt.IsActive())
         {
-            _commandPromptHandler.Activate();
+            _uIHandler.CommandPrompt.Activate();
             EventManager.TriggerEvent(EventManager.Event.GAME_PAUSED);
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (_commandPromptHandler.IsActive())
+            if (_uIHandler.CommandPrompt.IsActive())
             {
-                _commandPromptHandler.Deactivate();
+                _uIHandler.CommandPrompt.Deactivate();
             }
             else
             {
-                _menuHandler.SetActive(!_menuHandler.IsActive());
+                _uIHandler.Menu.SetActive(!_uIHandler.Menu.IsActive());
             }
 
-            EventManager.Event gameStateEvent = _menuHandler.IsActive() ? EventManager.Event.GAME_PAUSED : EventManager.Event.GAME_RESUMED;
+            EventManager.Event gameStateEvent = _uIHandler.Menu.IsActive() ? EventManager.Event.GAME_PAUSED : EventManager.Event.GAME_RESUMED;
             EventManager.TriggerEvent(gameStateEvent);
         }
     }

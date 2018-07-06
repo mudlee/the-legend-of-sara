@@ -3,11 +3,9 @@ using UnityEngine.UI;
 
 public class MenuHandler : MonoBehaviour {
     public enum Logic { USE_START, USE_RESTART }
-    [SerializeField] private GameObject _container;
     [SerializeField] private Button _quitButton;
     [SerializeField] private Button _startButton;
     [SerializeField] private Button _restartButton;
-    [SerializeField] private GameObject _wonLayer;
     [SerializeField] private Logic _logic = Logic.USE_START;
     private LevelManager _levelManager;
     private GameManager _gameManager;
@@ -15,12 +13,12 @@ public class MenuHandler : MonoBehaviour {
 
     public void SetActive(bool active)
     {
-        _container.SetActive(active);
+        gameObject.SetActive(active);
     }
 
     public bool IsActive()
     {
-        return _container.activeSelf;
+        return gameObject.activeSelf;
     }
 
     public void Quit()
@@ -30,12 +28,6 @@ public class MenuHandler : MonoBehaviour {
         #else
             Application.Quit();
         #endif
-    }
-
-    public void ShowWon()
-    {
-        SetActive(false);
-        _wonLayer.SetActive(true);
     }
 
     private void Awake()

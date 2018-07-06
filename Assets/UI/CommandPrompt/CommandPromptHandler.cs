@@ -2,8 +2,6 @@
 using UnityEngine.UI;
 
 public class CommandPromptHandler : MonoBehaviour {
-    [SerializeField] private GameObject _textGO;
-    [SerializeField] private GameObject _panelGO;
     [SerializeField] private Text _text;
     private GameManager _gameManager;
     private bool _active;
@@ -20,18 +18,18 @@ public class CommandPromptHandler : MonoBehaviour {
 
     public void Activate()
     {
+        Debug.Log("Activating command prompt");
         _active = true;
         _text.text = "_";
-        _textGO.SetActive(true);
-        _panelGO.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void Deactivate()
     {
+        Debug.Log("Deactivating command prompt");
         _text.text = "_";
         _active = false;
-        _textGO.SetActive(false);
-        _panelGO.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     void Update ()

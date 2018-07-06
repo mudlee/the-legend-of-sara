@@ -4,22 +4,27 @@ using UnityEngine.UI;
 
 public class NotificationHandler : MonoBehaviour {
     [SerializeField] private Text _text;
-    [SerializeField] private GameObject _notification;
+    private Canvas _canvas;
     private Queue<string> _queue = new Queue<string>();
     private float _messageShownAt;
     private const float MESSAGE_TIME = 5f;
 
+    private void Start()
+    {
+        _canvas = GetComponent<Canvas>();
+    }
+
     private void Update ()
     {
-        if(_notification.activeSelf && Time.time > _messageShownAt + MESSAGE_TIME)
+        if(_canvas.enabled && Time.time > _messageShownAt + MESSAGE_TIME)
         {
             Debug.Log("Hiding notifcation...");
-            _notification.SetActive(false);
+            _canvas.enabled = false;
         }
 
         if (_queue.Count != 0)
         {
-            _notification.SetActive(true);
+            _canvas.enabled = true;
             _text.text = _queue.Dequeue();
             Debug.Log("Showing notification " + _text.text);
             _messageShownAt = Time.time;

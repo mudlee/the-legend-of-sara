@@ -6,7 +6,7 @@ using UnityEngine;
 public class DoorHandler : MonoBehaviour {
     public enum DoorId { ROOM2_DOOR };
     [SerializeField] private DoorId _door;
-    private NotificationHandler _notificationHandler;
+    private UIHandler _uIHandler;
     private AudioManager _audioManager;
     private Animator _doorAnimator;
     private BoxCollider2D _collider;
@@ -24,7 +24,7 @@ public class DoorHandler : MonoBehaviour {
 
     private void Start()
     {
-        _notificationHandler = GameObject.FindGameObjectWithTag("NotificationHandler").GetComponent<NotificationHandler>();
+        _uIHandler = GameObject.FindObjectOfType<UIHandler>();
         _doorAnimator = GetComponent<Animator>();
         _collider = GetComponent<BoxCollider2D>();
         _audioManager = GameObject.FindObjectOfType<AudioManager>();
@@ -35,7 +35,7 @@ public class DoorHandler : MonoBehaviour {
                     EventManager.StartListening(EventManager.Event.ROOM2_DOOR_QUESTION_ANSWERED, () => {
                         _doorAnimator.SetTrigger("OpenTrigger");
                         _collider.enabled = false;
-                        _audioManager.Play(AudioManager.EffectType.DOOR_OPEN, AudioManager.Source.SECONDARY, false);
+                        _audioManager?.Play(AudioManager.EffectType.DOOR_OPEN, AudioManager.Source.SECONDARY, false);
                     });
                     break;
                 }
@@ -52,6 +52,6 @@ public class DoorHandler : MonoBehaviour {
         string message = doorMessages[index];
         _tries[_door] = (index + 1) > doorMessages.Length - 1 ? 0 : index + 1;
 
-        _notificationHandler.ShowNotification(message);
+        _uIHandler.Notification.ShowNotification(message);
     }
 }
