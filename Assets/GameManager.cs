@@ -3,7 +3,6 @@
 public class GameManager : MonoBehaviour {
     public enum RoomBorderTrigger { TRIGGER1, TRIGGER2, TRIGGER3, TRIGGER4, TRIGGER5, TRIGGER6 }
 
-    [SerializeField] GameObject _playerPrefab;
     [SerializeField] Transform _playerSpawnPosition;
     private GameObject _player;
     private CommandPromptHandler _commandPromptHandler;
@@ -73,13 +72,13 @@ public class GameManager : MonoBehaviour {
             _menuHandler.ShowWon();
         });
 
+        _player = GameObject.FindGameObjectWithTag("Player");
+
         _notificationHandler = GameObject.FindGameObjectWithTag("NotificationHandler").GetComponent<NotificationHandler>();
         _commandPromptHandler = GameObject.FindObjectOfType<CommandPromptHandler>();
         _menuHandler = GameObject.FindObjectOfType<MenuHandler>();
         _menuHandler.SetActive(false);
         RenderSettings.ambientLight = Color.black;
-
-        _player = GameObject.Instantiate(_playerPrefab,_playerSpawnPosition) as GameObject;
     }
 
     private void Update()

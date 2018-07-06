@@ -15,6 +15,7 @@ This Little game was created for the 2nd OGA game jam.
 - Menu Music: https://opengameart.org/content/reflections-upon-the-black-mirror
 - Ambient Music: https://opengameart.org/content/dark-ambiance
 - Step Sound: https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud
+- Door sound: https://opengameart.org/content/door-open-door-close-set
 
 # License
 The Unlicense

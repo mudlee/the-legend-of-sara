@@ -10,7 +10,6 @@ public class DoorHandler : MonoBehaviour {
     private AudioManager _audioManager;
     private Animator _doorAnimator;
     private BoxCollider2D _collider;
-    private bool _open;
     private Dictionary<DoorId, string[]> _messages = new Dictionary<DoorId, string[]>{
         { DoorId.ROOM2_DOOR, new string[]{
             "I need the answer to life, the Universe and everything.",
@@ -45,17 +44,14 @@ public class DoorHandler : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!_open)
-        {
-            int index=0;
-            _tries.TryGetValue(_door, out index);
+        int index=0;
+        _tries.TryGetValue(_door, out index);
 
-            string[] doorMessages;
-            _messages.TryGetValue(_door, out doorMessages);
-            string message = doorMessages[index];
-            _tries[_door] = (index + 1) > doorMessages.Length - 1 ? 0 : index + 1;
+        string[] doorMessages;
+        _messages.TryGetValue(_door, out doorMessages);
+        string message = doorMessages[index];
+        _tries[_door] = (index + 1) > doorMessages.Length - 1 ? 0 : index + 1;
 
-            _notificationHandler.ShowNotification(message);
-        }
+        _notificationHandler.ShowNotification(message);
     }
 }

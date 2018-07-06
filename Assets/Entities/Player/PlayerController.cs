@@ -46,6 +46,8 @@ public class PlayerController : MonoBehaviour {
 
     private void DisableMovement()
     {
+        _audioManager?.Stop(AudioManager.Source.PRIMARY);
+        _rigidbody.velocity = new Vector2(0,0);
         _moveEnabled = false;
         _animator.SetBool("WalkRight", false);
         _animator.SetBool("WalkLeft", false);
