@@ -5,7 +5,10 @@ public class PlayerController : MonoBehaviour {
     private Animator _animator;
     private Rigidbody2D _rigidbody;
     private bool _moveEnabled = true;
-    private AudioManager _audioManager;
+    private SoundPlayer _soundPlayer;
+    private Vector2 _velocity = new Vector2();
+    private int _stepSoundAudioSource;
+    private bool _moving;
 
     private void Start ()
     {
@@ -14,7 +17,7 @@ public class PlayerController : MonoBehaviour {
         EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, DisableMovement);
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
-        _audioManager = GameObject.FindObjectOfType<AudioManager>();
+        _soundPlayer = FindObjectOfType<SoundPlayer>();
     }
 
     private void Update ()
@@ -32,26 +35,40 @@ public class PlayerController : MonoBehaviour {
         _animator.SetBool("WalkTop", vertical > 0);
         _animator.SetBool("WalkBottom", vertical < 0);
 
-        _rigidbody.velocity = new Vector2(horizontal * SPEED, vertical * SPEED);
+        _velocity.Set(horizontal * SPEED, vertical * SPEED);
+        _rigidbody.velocity = _velocity;
 
-        if(horizontal != 0 || vertical != 0)
+
+        if(horizontal != 0f || vertical != 0f)
         {
-            _audioManager?.Play(AudioManager.EffectType.STEP, AudioManager.Source.PRIMARY, true);
+            if(!_moving)
+            {
+                _moving = true;
+                _stepSoundAudioSource = _soundPlayer.Play(Sound.PLAYER_STEP);
+            }
         }
-        else
+        else if (_moving)
         {
-            _audioManager?.Stop(AudioManager.Source.PRIMARY);
+            _moving = false;
+            _soundPlayer.Stop(_stepSoundAudioSource);
         }
 	}
 
     private void DisableMovement()
     {
-        _audioManager?.Stop(AudioManager.Source.PRIMARY);
-        _rigidbody.velocity = new Vector2(0,0);
         _moveEnabled = false;
-        _animator.SetBool("WalkRight", false);
-        _animator.SetBool("WalkLeft", false);
-        _animator.SetBool("WalkTop", false);
-        _animator.SetBool("WalkBottom", false);
+
+        if(_moving)
+        {
+            _moving = false;
+            _animator.SetBool("WalkRight", false);
+            _animator.SetBool("WalkLeft", false);
+            _animator.SetBool("WalkTop", false);
+            _animator.SetBool("WalkBottom", false);
+
+            _velocity.Set(0,0);
+            _rigidbody.velocity = _velocity;
+            _soundPlayer.Stop(_stepSoundAudioSource);
+        }
     }
 }
