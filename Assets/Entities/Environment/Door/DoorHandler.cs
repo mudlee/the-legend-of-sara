@@ -7,7 +7,7 @@ public class DoorHandler : MonoBehaviour {
     public enum DoorId { ROOM2_DOOR };
     [SerializeField] private DoorId _door;
     private UIHandler _uIHandler;
-    private AudioManager _audioManager;
+    private SoundPlayer _soundPlayer;
     private Animator _doorAnimator;
     private BoxCollider2D _collider;
     private Dictionary<DoorId, string[]> _messages = new Dictionary<DoorId, string[]>{
@@ -24,10 +24,10 @@ public class DoorHandler : MonoBehaviour {
 
     private void Start()
     {
-        _uIHandler = GameObject.FindObjectOfType<UIHandler>();
+        _uIHandler = FindObjectOfType<UIHandler>();
         _doorAnimator = GetComponent<Animator>();
         _collider = GetComponent<BoxCollider2D>();
-        _audioManager = GameObject.FindObjectOfType<AudioManager>();
+        _soundPlayer = FindObjectOfType<SoundPlayer>();
 
         switch (_door) {
             case DoorId.ROOM2_DOOR:
@@ -35,7 +35,7 @@ public class DoorHandler : MonoBehaviour {
                     EventManager.StartListening(EventManager.Event.ROOM2_DOOR_QUESTION_ANSWERED, () => {
                         _doorAnimator.SetTrigger("OpenTrigger");
                         _collider.enabled = false;
-                        _audioManager?.Play(AudioManager.EffectType.DOOR_OPEN, AudioManager.Source.SECONDARY, false);
+                        _soundPlayer?.Play(Sound.DOOR_OPEN);
                     });
                     break;
                 }

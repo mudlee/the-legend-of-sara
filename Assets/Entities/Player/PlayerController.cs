@@ -44,13 +44,16 @@ public class PlayerController : MonoBehaviour {
             if(!_moving)
             {
                 _moving = true;
-                _stepSoundAudioSource = _soundPlayer.Play(Sound.PLAYER_STEP);
+                if(_soundPlayer!=null)
+                {
+                    _stepSoundAudioSource = _soundPlayer.Play(Sound.PLAYER_STEP);    
+                }
             }
         }
         else if (_moving)
         {
             _moving = false;
-            _soundPlayer.Stop(_stepSoundAudioSource);
+            _soundPlayer?.Stop(_stepSoundAudioSource);
         }
 	}
 
@@ -68,7 +71,7 @@ public class PlayerController : MonoBehaviour {
 
             _velocity.Set(0,0);
             _rigidbody.velocity = _velocity;
-            _soundPlayer.Stop(_stepSoundAudioSource);
+            _soundPlayer?.Stop(_stepSoundAudioSource);
         }
     }
 }

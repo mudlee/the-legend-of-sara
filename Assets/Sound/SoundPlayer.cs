@@ -7,15 +7,21 @@ public class SoundPlayer : MonoBehaviour {
 
     [SerializeField] private SoundInfo[] _sounds;
     [SerializeField] [Range(1,20)] private int _audioSourceQueueSize=10;
-    private Dictionary<Sound, SoundInfo> _map = new Dictionary<Sound, SoundInfo>();
-    private Dictionary<int, AudioSource> _queue=new Dictionary<int, AudioSource>();
+    private readonly Dictionary<Sound, SoundInfo> _map = new Dictionary<Sound, SoundInfo>();
+    private readonly Dictionary<int, AudioSource> _queue = new Dictionary<int, AudioSource>();
+    private readonly Dictionary<int, int> _fadeOutQueue = new Dictionary<int, int>();
+    private readonly Dictionary<int, int> _fadeInQueue = new Dictionary<int, int>();
 
     public int Play(Sound sound)
     {
-        SoundInfo info;
-        _map.TryGetValue(sound, out info);
+        return Play(sound, null);
+    }
 
-        if(info == null)
+    public int Play(Sound sound, int? fadeInTime)
+    {
+        SoundInfo info;
+
+        if(!_map.TryGetValue(sound, out info))
         {
             Debug.LogError(string.Format("Sound {0} cannot be played. No SoundInfo found", sound.ToString()));
             return 0;
@@ -28,25 +34,52 @@ public class SoundPlayer : MonoBehaviour {
             return 0;
         }
 
+        Debug.Log(string.Format("Playing {0}, on: {1}, fadeInTime: {2}", sound, source.GetInstanceID(), fadeInTime));
+
         source.loop = info.loop;
         source.clip = info.clip;
-        source.volume = info.volume;
+
+        if(fadeInTime.HasValue)
+        {
+            int numOfUpdatesRequired = Mathf.RoundToInt((float)fadeInTime.Value / Time.deltaTime);
+            _fadeInQueue.Add(source.GetInstanceID(), numOfUpdatesRequired);
+            source.volume = 0;
+        }
+        else
+        {
+            source.volume = info.volume;
+        }
+
         source.Play();
+
         return source.GetInstanceID();
     }
 
     public void Stop(int audioSourceID)
     {
-        AudioSource source;
-        _queue.TryGetValue(audioSourceID, out source);
+        Stop(audioSourceID, null);
+    }
 
-        if(source == null)
+    public void Stop(int audioSourceID, int? fadeOutTime)
+    {
+        Debug.Log(string.Format("Stopping {0}, fadeOutTime: {1}", audioSourceID, fadeOutTime));
+        AudioSource source;
+
+        if(!_queue.TryGetValue(audioSourceID, out source))
         {
             Debug.LogError(string.Format("AudioSource with ID:{0} not found", audioSourceID));
             return;
         }
 
-        source.Stop();
+        if(fadeOutTime.HasValue)
+        {
+            int numOfUpdatesRequired = Mathf.RoundToInt((float)fadeOutTime.Value / Time.deltaTime);
+            _fadeOutQueue.Add(audioSourceID, numOfUpdatesRequired);
+        }
+        else
+        {
+            source.Stop();    
+        }
     }
 
     private void Awake()
@@ -68,6 +101,64 @@ public class SoundPlayer : MonoBehaviour {
         for (int i = 0; i < _audioSourceQueueSize;i++){
             AudioSource source = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
             _queue.Add(source.GetInstanceID(), source);
+        }
+	}
+
+	private void Update()
+	{
+        foreach (KeyValuePair<int, int> entry in _fadeOutQueue.ToArray())
+        {
+            int audioSourceID = entry.Key;
+            int remainingUpdates = entry.Value;
+
+            AudioSource source;
+            _queue.TryGetValue(audioSourceID, out source);
+
+            if(source == null)
+            {
+                Debug.LogError(string.Format("AudioSource {0} not found", audioSourceID));
+                continue;
+            }
+
+            float portion = source.volume / (float)remainingUpdates;
+            source.volume -= portion;
+
+            _fadeOutQueue[audioSourceID] = --remainingUpdates;
+
+            if(remainingUpdates <= 0)
+            {
+                Debug.Log(string.Format("Stopped: {0}",audioSourceID));
+                source.Stop();
+                _fadeOutQueue.Remove(audioSourceID);
+            }
+        }
+
+        foreach (KeyValuePair<int, int> entry in _fadeInQueue.ToArray())
+        {
+            int audioSourceID = entry.Key;
+            int remainingUpdates = entry.Value;
+
+            AudioSource source;
+            _queue.TryGetValue(audioSourceID, out source);
+
+            if (source == null)
+            {
+                Debug.LogError(string.Format("AudioSource {0} not found", audioSourceID));
+                continue;
+            }
+
+            // TODO: I need here not the source.volume as it will alwayse be 0 at start
+            // I need the soundInfo.volume as the target volume
+            float portion = source.volume / (float)remainingUpdates;
+            source.volume += portion;
+
+            _fadeInQueue[audioSourceID] = --remainingUpdates;
+
+            if (remainingUpdates <= 0)
+            {
+                Debug.Log(string.Format("Volume reached {0}",audioSourceID));
+                _fadeInQueue.Remove(audioSourceID);
+            }
         }
 	}
 }
