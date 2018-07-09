@@ -10,7 +10,19 @@ public class SoundPlayer : MonoBehaviour {
     private readonly Dictionary<Sound, SoundInfo> _map = new Dictionary<Sound, SoundInfo>();
     private readonly Dictionary<int, AudioSource> _queue = new Dictionary<int, AudioSource>();
     private readonly Dictionary<int, int> _fadeOutQueue = new Dictionary<int, int>();
-    private readonly Dictionary<int, int> _fadeInQueue = new Dictionary<int, int>();
+    private readonly Dictionary<int, FadeInProps> _fadeInQueue = new Dictionary<int, FadeInProps>();
+
+    struct FadeInProps
+    {
+        public int NumOfUpdatesRequired;
+        public float PortionPerUpdate;
+
+        public FadeInProps(int NumOfUpdatesRequired, float PortionPerUpdate)
+        {
+            this.NumOfUpdatesRequired = NumOfUpdatesRequired;
+            this.PortionPerUpdate = PortionPerUpdate;
+        }
+    };
 
     public int Play(Sound sound)
     {
@@ -42,7 +54,8 @@ public class SoundPlayer : MonoBehaviour {
         if(fadeInTime.HasValue)
         {
             int numOfUpdatesRequired = Mathf.RoundToInt((float)fadeInTime.Value / Time.deltaTime);
-            _fadeInQueue.Add(source.GetInstanceID(), numOfUpdatesRequired);
+            float portionPerUpdate = info.volume / (float)numOfUpdatesRequired;
+            _fadeInQueue.Add(source.GetInstanceID(), new FadeInProps(numOfUpdatesRequired, portionPerUpdate));
             source.volume = 0;
         }
         else
@@ -133,10 +146,10 @@ public class SoundPlayer : MonoBehaviour {
             }
         }
 
-        foreach (KeyValuePair<int, int> entry in _fadeInQueue.ToArray())
+        foreach (KeyValuePair<int, FadeInProps> entry in _fadeInQueue.ToArray())
         {
             int audioSourceID = entry.Key;
-            int remainingUpdates = entry.Value;
+            FadeInProps props = entry.Value;
 
             AudioSource source;
             _queue.TryGetValue(audioSourceID, out source);
@@ -147,14 +160,12 @@ public class SoundPlayer : MonoBehaviour {
                 continue;
             }
 
-            // TODO: I need here not the source.volume as it will alwayse be 0 at start
-            // I need the soundInfo.volume as the target volume
-            float portion = source.volume / (float)remainingUpdates;
-            source.volume += portion;
+            source.volume += props.PortionPerUpdate;
+            props.NumOfUpdatesRequired -= 1;
 
-            _fadeInQueue[audioSourceID] = --remainingUpdates;
+            _fadeInQueue[audioSourceID] = props;
 
-            if (remainingUpdates <= 0)
+            if (props.NumOfUpdatesRequired <= 0)
             {
                 Debug.Log(string.Format("Volume reached {0}",audioSourceID));
                 _fadeInQueue.Remove(audioSourceID);
