@@ -44,3 +44,4 @@ The Unlicense
 - https://opengameart.org/content/husky-sprites
 - https://opengameart.org/content/skeleton-and-ghost-spritesheets-ars-notoria
 - https://opengameart.org/content/monster-and-creatures-sound-effects-pack-001
+- https://opengameart.org/content/horror-sound-effects-library
