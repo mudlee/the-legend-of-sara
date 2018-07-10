@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f3bb438d07108478910a3da8db7d40, type: 3}
+  m_Name: UndeadKingInfo
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 11400000, guid: 5d20b418fc99a0a4f88ed1a48729c5a1, type: 2}
+  - {fileID: 11400000, guid: de3f2f1d3884a8c4f99ca15d870f9881, type: 2}
+  - {fileID: 11400000, guid: c463a887a61a72e4690d4f4fbb6570ee, type: 2}
+  - {fileID: 11400000, guid: 0b336c8b1f36f374a83bfd307954ea8b, type: 2}
+  - {fileID: 11400000, guid: 87ba77e55b89b0f4e8cb3e08729dc7ad, type: 2}
+  - {fileID: 11400000, guid: 4d425c8a9e3687841981e2864770c94f, type: 2}
+  - {fileID: 11400000, guid: 7122000921999eb439821ac93b4f7833, type: 2}
+  - {fileID: 11400000, guid: 50dfb6b274c72144b920907659541b13, type: 2}
+  - {fileID: 11400000, guid: 76027f5bf32416342b0d0362e80c8ec0, type: 2}
+  - {fileID: 11400000, guid: eaa8b90510f1c3047b7f41fd50d179b8, type: 2}
+  deadSound: {fileID: 11400000, guid: 2d3364ddde0c0e746a4e3f8b492b5b6f, type: 2}

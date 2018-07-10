@@ -9,13 +9,38 @@ This Little game was created for the 2nd OGA game jam.
 
 # Credits
 
-- Sara: https://opengameart.org/content/lpc-sara
-- Font: https://www.dafont.com/windows-command-prompt.font
+## Character
+
+https://opengameart.org/content/lpc-sara
+
+## Font
+
+https://www.dafont.com/windows-command-prompt.font
+
+## Environment
+
 - Tileset: https://opengameart.org/content/dungeon-crawl-32x32-tiles-supplemental
+
+## Sound
+
 - Menu Music: https://opengameart.org/content/reflections-upon-the-black-mirror
 - Ambient Music: https://opengameart.org/content/dark-ambiance
 - Step Sound: https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud
 - Door sound: https://opengameart.org/content/door-open-door-close-set
+- NPC sounds: https://opengameart.org/content/voices-sound-effects-library
+
+## NPC
+
+- Undead King: https://opengameart.org/content/undead-king
 
 # License
 The Unlicense
+
+# TODO
+
+## Migthe be used
+
+- https://opengameart.org/content/explosion-effects-and-more
+- https://opengameart.org/content/husky-sprites
+- https://opengameart.org/content/skeleton-and-ghost-spritesheets-ars-notoria
+- https://opengameart.org/content/monster-and-creatures-sound-effects-pack-001

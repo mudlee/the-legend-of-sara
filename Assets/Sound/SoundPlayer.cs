@@ -113,6 +113,10 @@ public class SoundPlayer : MonoBehaviour {
 
         for (int i = 0; i < _audioSourceQueueSize;i++){
             AudioSource source = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+            source.minDistance = 7f;
+            source.maxDistance = 15f;
+            source.spatialBlend = 1f;
+            source.rolloffMode = AudioRolloffMode.Linear;
             _queue.Add(source.GetInstanceID(), source);
         }
 	}
