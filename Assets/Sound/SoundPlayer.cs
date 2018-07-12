@@ -47,8 +47,6 @@ public class SoundPlayer : MonoBehaviour
             return 0;
         }
 
-        Debug.Log(string.Format("Playing {0}, on: {1}, fadeInTime: {2}", sound, source.GetInstanceID(), fadeInTime));
-
         source.loop = info.loop;
         source.clip = info.clip;
 
@@ -76,7 +74,6 @@ public class SoundPlayer : MonoBehaviour
 
     public void Stop(int audioSourceID, int? fadeOutTime)
     {
-        Debug.Log(string.Format("Stopping {0}, fadeOutTime: {1}", audioSourceID, fadeOutTime));
         AudioSource source;
 
         if (!_queue.TryGetValue(audioSourceID, out source))
@@ -144,7 +141,6 @@ public class SoundPlayer : MonoBehaviour
 
             if (remainingUpdates <= 0)
             {
-                Debug.Log(string.Format("Stopped: {0}", audioSourceID));
                 source.Stop();
                 _fadeOutQueue.Remove(audioSourceID);
             }
@@ -171,7 +167,6 @@ public class SoundPlayer : MonoBehaviour
 
             if (props.NumOfUpdatesRequired <= 0)
             {
-                Debug.Log(string.Format("Volume reached {0}", audioSourceID));
                 _fadeInQueue.Remove(audioSourceID);
             }
         }

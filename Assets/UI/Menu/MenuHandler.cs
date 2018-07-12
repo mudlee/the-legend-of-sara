@@ -55,6 +55,7 @@ public class MenuHandler : MonoBehaviour {
             _levelManager.LoadNextLevel();
             _soundPlayer.Stop(LoadingSoundInitialiser.MenuAmbientSoundID,3);
             _soundPlayer.Play(Sound.GAME_AMBIENT,3);
+            _soundPlayer.Play(Sound.HEARTBEAT_SLOW);
         });
 
         _restartButton.onClick.AddListener(() => {

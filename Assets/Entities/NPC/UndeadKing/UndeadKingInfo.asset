@@ -23,3 +23,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 76027f5bf32416342b0d0362e80c8ec0, type: 2}
   - {fileID: 11400000, guid: eaa8b90510f1c3047b7f41fd50d179b8, type: 2}
   deadSound: {fileID: 11400000, guid: 2d3364ddde0c0e746a4e3f8b492b5b6f, type: 2}
+  moveSound: {fileID: 0}
+  walkLeft: {fileID: 7400000, guid: 08072436fc60d544eada09fcadd35a9f, type: 2}
+  walkRight: {fileID: 7400000, guid: 4afb5bf9626883d4bac0eeff4653fcbf, type: 2}
+  walkTop: {fileID: 7400000, guid: 912d7bd25472fbc4c8a2748fb3f6103f, type: 2}
+  walkBottom: {fileID: 7400000, guid: e5a2e7b3d448a3148bfaec2df5b94086, type: 2}

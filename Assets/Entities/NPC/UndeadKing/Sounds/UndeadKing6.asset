@@ -11,8 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca61674e04075458e95fac9917cf13d2, type: 3}
   m_Name: UndeadKing6
   m_EditorClassIdentifier: 
-  sound: 9
+  sound: 11
   clip: {fileID: 8300000, guid: 6f12cd5d782b841489494c99dd935603, type: 3}
   loop: 0
   volume: 0.5
-  type: 1

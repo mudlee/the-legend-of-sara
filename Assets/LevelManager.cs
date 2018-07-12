@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     {
         if (_autoLoadNextLevel)
         {
-            Invoke("LoadNextLevel", 6);
+            Invoke("LoadNextLevel", 10);
         }
     }
 

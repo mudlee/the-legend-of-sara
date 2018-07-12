@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: SoundGameAmbient
   m_EditorClassIdentifier: 
   sound: 3
-  clip: {fileID: 8300000, guid: c951a98d39b1c6640bde5f3fa95a9599, type: 3}
+  clip: {fileID: 8300000, guid: 325190642d0f3f046804c3070a37a590, type: 3}
   loop: 1
-  volume: 0.5
+  volume: 0.2

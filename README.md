@@ -23,11 +23,12 @@ https://www.dafont.com/windows-command-prompt.font
 
 ## Sound
 
-- Menu Music: https://opengameart.org/content/reflections-upon-the-black-mirror
-- Ambient Music: https://opengameart.org/content/dark-ambiance
+- Menu Music: https://opengameart.org/content/horror-atmosphere
+- Ambient Music: https://opengameart.org/content/horror-loop
 - Step Sound: https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud
 - Door sound: https://opengameart.org/content/door-open-door-close-set
 - NPC sounds: https://opengameart.org/content/voices-sound-effects-library
+- Heartbeats: https://opengameart.org/content/heartbeat-sounds
 
 ## NPC
 
