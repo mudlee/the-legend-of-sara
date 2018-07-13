@@ -12,4 +12,7 @@ public class UIHandler : MonoBehaviour {
 
     [SerializeField] private EndScreenHandler _endScreenHandler;
     public EndScreenHandler EndScreen { get { return _endScreenHandler; } }
+
+    [SerializeField] private TutorialHandler _tutorialHandler;
+    public TutorialHandler Tutorial { get { return _tutorialHandler; } }
 }

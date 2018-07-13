@@ -48,7 +48,6 @@ public class NPCHandler : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _player.transform.position);
         if(distance<=AWARANESS_RADIUS)
         {
-            print("player close");
         }
     }
 
@@ -76,8 +75,10 @@ public class NPCHandler : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        UnityEditor.Handles.color = Color.red;
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, AWARANESS_RADIUS);
+        #if UNITY_EDITOR
+            UnityEditor.Handles.color = Color.red;
+            UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, AWARANESS_RADIUS);
+        #endif
     }
 
     private void UpdateDirection(Direction direction)

@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour {
 
         _uIHandler = GameObject.FindObjectOfType<UIHandler>();
         _uIHandler.Menu.SetActive(false);
+        _uIHandler.Tutorial.SetActiveFor(5);
         RenderSettings.ambientLight = Color.black;
     }
 

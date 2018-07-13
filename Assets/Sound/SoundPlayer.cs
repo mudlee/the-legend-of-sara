@@ -100,20 +100,16 @@ public class SoundPlayer : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             CREATED = true;
         }
-    }
 
-    private void Start()
-    {
         foreach (SoundInfo info in _sounds)
         {
+            Debug.Log(string.Format("Loading sound: {0}", info.sound.ToString()));
             _map.Add(info.sound, info);
         }
 
         for (int i = 0; i < _audioSourceQueueSize; i++)
         {
             AudioSource source = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
-
-
             _queue.Add(source.GetInstanceID(), source);
         }
     }

@@ -9,7 +9,6 @@ public class MenuHandler : MonoBehaviour {
     [SerializeField] private Logic _logic = Logic.USE_START;
     private LevelManager _levelManager;
     private GameManager _gameManager;
-    private SoundPlayer _soundPlayer;
 
     public void SetActive(bool active)
     {
@@ -47,15 +46,11 @@ public class MenuHandler : MonoBehaviour {
     {
         _levelManager = FindObjectOfType<LevelManager>();
         _gameManager = FindObjectOfType<GameManager>();
-        _soundPlayer = FindObjectOfType<SoundPlayer>();
 
         _quitButton.onClick.AddListener(Quit);
 
         _startButton.onClick.AddListener(() => {
             _levelManager.LoadNextLevel();
-            _soundPlayer.Stop(LoadingSoundInitialiser.MenuAmbientSoundID,3);
-            _soundPlayer.Play(Sound.GAME_AMBIENT,3);
-            _soundPlayer.Play(Sound.HEARTBEAT_SLOW);
         });
 
         _restartButton.onClick.AddListener(() => {
