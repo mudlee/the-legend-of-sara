@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4479565282594342}
   - component: {fileID: 61487457898496894}
   - component: {fileID: 114426593502206482}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trigger1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4301650429018706}
   - component: {fileID: 61216786036400764}
   - component: {fileID: 114172527165949902}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trigger5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 4865567329729564}
   - component: {fileID: 61843491532963614}
   - component: {fileID: 114357227667298434}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trigger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 4343921331636514}
   - component: {fileID: 61938103512836620}
   - component: {fileID: 114389378263003442}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trigger6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4517230716029348}
   - component: {fileID: 61709819733861864}
   - component: {fileID: 114475007986423832}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trigger4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 4600671061580774}
   - component: {fileID: 61307894468015016}
   - component: {fileID: 114547837512059702}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Trigger3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4875573003393706}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: RoomBorderTriggers
   m_TagString: Untagged
   m_Icon: {fileID: 0}

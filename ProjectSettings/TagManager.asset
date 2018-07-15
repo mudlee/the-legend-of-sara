@@ -14,11 +14,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemies
+  - Walls
+  - Player
+  - Projectile
+  - Environment
   - 
   - 
   - 

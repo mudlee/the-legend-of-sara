@@ -24,7 +24,7 @@ https://www.dafont.com/windows-command-prompt.font
 ## Sound
 
 - Menu Music: https://opengameart.org/content/horror-atmosphere
-- Ambient Music: https://opengameart.org/content/horror-loop
+- Ambient Music: https://opengameart.org/content/dark-ambience-loop
 - Step Sound: https://opengameart.org/content/different-steps-on-wood-stone-leaves-gravel-and-mud
 - Door sound: https://opengameart.org/content/door-open-door-close-set
 - NPC sounds: https://opengameart.org/content/voices-sound-effects-library

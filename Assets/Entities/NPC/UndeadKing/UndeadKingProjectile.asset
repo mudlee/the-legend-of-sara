@@ -8,10 +8,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca61674e04075458e95fac9917cf13d2, type: 3}
-  m_Name: UndeadKing8
+  m_Script: {fileID: 11500000, guid: a69ed0469459ffb48b8e24775e3d98dd, type: 3}
+  m_Name: UndeadKingProjectile
   m_EditorClassIdentifier: 
-  sound: 13
-  clip: {fileID: 8300000, guid: b7d04b8110ffe3e49b9df6da05c6350d, type: 3}
-  loop: 0
-  volume: 0.5
+  speed: 7
+  damage: 10

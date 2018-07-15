@@ -15,4 +15,7 @@ public class UIHandler : MonoBehaviour {
 
     [SerializeField] private TutorialHandler _tutorialHandler;
     public TutorialHandler Tutorial { get { return _tutorialHandler; } }
+
+    [SerializeField] private HealthAndScoreHandler _healthAndScoreHandler;
+    public HealthAndScoreHandler HealthAndScore { get { return _healthAndScoreHandler; } }
 }

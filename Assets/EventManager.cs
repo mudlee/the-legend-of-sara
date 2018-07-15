@@ -7,8 +7,13 @@ public class EventManager : MonoBehaviour {
     {
         ROOM2_DOOR_QUESTION_ANSWERED,
         PLAYER_REACHED_EXIT,
+        GAME_STARTED,
         GAME_PAUSED,
-        GAME_RESUMED
+        GAME_RESUMED,
+        ENEMY_ATTENTION_HIGH,
+        ENEMY_ATTENTION_LOW,
+        ENEMY_ATTENTION_LOST,
+        PLAYER_DIED,
     };
 
     private Dictionary<Event, UnityEvent> eventDictionary;
@@ -46,7 +51,6 @@ public class EventManager : MonoBehaviour {
 
     public static void StartListening(Event eventName, UnityAction listener)
     {
-        Debug.LogFormat("Start listening on {0} - {1}->{2}", eventName, listener.Target.ToString(), listener.Method.ToString());
         UnityEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
@@ -62,7 +66,6 @@ public class EventManager : MonoBehaviour {
 
     public static void StopListening(Event eventName, UnityAction listener)
     {
-        Debug.LogFormat("Stop listening on {0} - {1}->{2}", eventName, listener.Target.ToString(), listener.Method.ToString());
         if (eventManager == null) return;
         UnityEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
@@ -73,7 +76,6 @@ public class EventManager : MonoBehaviour {
 
     public static void TriggerEvent(Event eventName)
     {
-        Debug.LogFormat("Invoking event {0}", eventName);
         UnityEvent thisEvent = null;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {

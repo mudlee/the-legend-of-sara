@@ -12,6 +12,7 @@ public class MenuHandler : MonoBehaviour {
 
     public void SetActive(bool active)
     {
+        Cursor.visible = active;
         gameObject.SetActive(active);
     }
 

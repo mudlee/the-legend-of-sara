@@ -9,15 +9,29 @@ public class PlayerController : MonoBehaviour {
     private Vector2 _velocity = new Vector2();
     private int _stepSoundAudioSource;
     private bool _moving;
+    private UIHandler _uIHandler;
+    private int _health = 100;
+
+    public void Damage(int amount)
+    {
+        _health -= amount;
+        _uIHandler.HealthAndScore.UpdateHealth(_health);
+        if(_health<=0)
+        {
+            EventManager.TriggerEvent(EventManager.Event.PLAYER_DIED);
+        }
+    }
 
     private void Start ()
     {
-        EventManager.StartListening(EventManager.Event.GAME_PAUSED, DisableMovement);
-        EventManager.StartListening(EventManager.Event.GAME_RESUMED, () => _moveEnabled = true);
-        EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, DisableMovement);
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _soundPlayer = FindObjectOfType<SoundPlayer>();
+        _uIHandler = GameObject.FindObjectOfType<UIHandler>();
+
+        EventManager.StartListening(EventManager.Event.GAME_PAUSED, DisableMovement);
+        EventManager.StartListening(EventManager.Event.GAME_RESUMED, () => _moveEnabled = true);
+        EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, DisableMovement);
     }
 
     private void Update ()

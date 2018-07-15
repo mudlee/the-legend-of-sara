@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private Text _score;
     private GameObject _player;
     private UIHandler _uIHandler;
+    private SoundPlayer _soundPlayer;
     private int _currentRoom = 0;
+    private int _heartbeatSoundID;
 
     public void Restart()
     {
         _player.transform.position = _playerSpawnPosition.position;
         EventManager.TriggerEvent(EventManager.Event.GAME_RESUMED);
+        EventManager.TriggerEvent(EventManager.Event.GAME_STARTED);
     }
 
     public void RoomBorderCrossed(RoomBorderTrigger trigger)
@@ -73,12 +76,37 @@ public class GameManager : MonoBehaviour {
             _uIHandler.EndScreen.ShowWon();
         });
 
+        EventManager.StartListening(EventManager.Event.PLAYER_DIED, () => {
+            _uIHandler.EndScreen.ShowLost();
+        });
+
         _player = GameObject.FindGameObjectWithTag("Player");
+        _soundPlayer = FindObjectOfType<SoundPlayer>();
 
         _uIHandler = GameObject.FindObjectOfType<UIHandler>();
         _uIHandler.Menu.SetActive(false);
         _uIHandler.Tutorial.SetActiveFor(5);
         RenderSettings.ambientLight = Color.black;
+
+        Cursor.visible = false;
+    }
+
+    private void Start()
+    {
+        EventManager.TriggerEvent(EventManager.Event.GAME_STARTED);
+        _soundPlayer.Play(Sound.GAME_AMBIENT, 3);
+
+        EventManager.StartListening(EventManager.Event.ENEMY_ATTENTION_LOST, () => {
+            _soundPlayer.Stop(_heartbeatSoundID);
+        });
+        EventManager.StartListening(EventManager.Event.ENEMY_ATTENTION_LOW, () => {
+            _soundPlayer.Stop(_heartbeatSoundID);
+            _heartbeatSoundID = _soundPlayer.Play(Sound.HEARTBEAT_SLOW);
+        });
+        EventManager.StartListening(EventManager.Event.ENEMY_ATTENTION_HIGH, () => {
+            _soundPlayer.Stop(_heartbeatSoundID);
+            _heartbeatSoundID = _soundPlayer.Play(Sound.HEARTBEAT_FAST);
+        });
     }
 
     private void Update()
