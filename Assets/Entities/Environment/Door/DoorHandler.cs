@@ -40,6 +40,11 @@ public class DoorHandler : MonoBehaviour {
                     break;
                 }
         }
+
+        EventManager.StartListening(EventManager.Event.RESET_GAME, () => {
+            _collider.enabled = true;
+            // TODO: trigger
+        });
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -12,7 +12,6 @@ public class RoomBorderTrigger : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log(string.Format("RoomTrigger: {0}", trigger));
         _gameManager.RoomBorderCrossed(trigger);
     }
 }

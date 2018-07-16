@@ -5,11 +5,10 @@ using UnityEngine;
 public class EventManager : MonoBehaviour {
     public enum Event
     {
+        RESET_GAME,
+
         ROOM2_DOOR_QUESTION_ANSWERED,
         PLAYER_REACHED_EXIT,
-        GAME_STARTED,
-        GAME_PAUSED,
-        GAME_RESUMED,
         ENEMY_ATTENTION_HIGH,
         ENEMY_ATTENTION_LOW,
         ENEMY_ATTENTION_LOST,

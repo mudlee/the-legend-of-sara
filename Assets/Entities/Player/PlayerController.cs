@@ -16,9 +16,33 @@ public class PlayerController : MonoBehaviour {
     {
         _health -= amount;
         _uIHandler.HealthAndScore.UpdateHealth(_health);
+
         if(_health<=0)
         {
             EventManager.TriggerEvent(EventManager.Event.PLAYER_DIED);
+        }
+    }
+
+    public void EnableMovement()
+    {
+        _moveEnabled = true;
+    }
+
+    public void DisableMovement()
+    {
+        _moveEnabled = false;
+
+        if (_moving)
+        {
+            _moving = false;
+            _animator.SetBool("WalkRight", false);
+            _animator.SetBool("WalkLeft", false);
+            _animator.SetBool("WalkTop", false);
+            _animator.SetBool("WalkBottom", false);
+
+            _velocity.Set(0, 0);
+            _rigidbody.velocity = _velocity;
+            _soundPlayer?.Stop(_stepSoundAudioSource);
         }
     }
 
@@ -29,9 +53,10 @@ public class PlayerController : MonoBehaviour {
         _soundPlayer = FindObjectOfType<SoundPlayer>();
         _uIHandler = GameObject.FindObjectOfType<UIHandler>();
 
-        EventManager.StartListening(EventManager.Event.GAME_PAUSED, DisableMovement);
-        EventManager.StartListening(EventManager.Event.GAME_RESUMED, () => _moveEnabled = true);
-        EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, DisableMovement);
+        EventManager.StartListening(EventManager.Event.RESET_GAME, () => {
+            _health = 100;
+            _uIHandler.HealthAndScore.UpdateHealth(_health);
+        });
     }
 
     private void Update ()
@@ -70,22 +95,4 @@ public class PlayerController : MonoBehaviour {
             _soundPlayer?.Stop(_stepSoundAudioSource);
         }
 	}
-
-    private void DisableMovement()
-    {
-        _moveEnabled = false;
-
-        if(_moving)
-        {
-            _moving = false;
-            _animator.SetBool("WalkRight", false);
-            _animator.SetBool("WalkLeft", false);
-            _animator.SetBool("WalkTop", false);
-            _animator.SetBool("WalkBottom", false);
-
-            _velocity.Set(0,0);
-            _rigidbody.velocity = _velocity;
-            _soundPlayer?.Stop(_stepSoundAudioSource);
-        }
-    }
 }

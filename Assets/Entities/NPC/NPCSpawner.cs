@@ -3,15 +3,13 @@
 public class NPCSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject _npcToSpawn;
-    private GameObject _npcRef;
 
     private void Awake()
     {
-        EventManager.StartListening(EventManager.Event.GAME_STARTED, () =>
+        EventManager.StartListening(EventManager.Event.RESET_GAME, () =>
         {
-            print("???");
-            _npcRef = Instantiate(_npcToSpawn) as GameObject;
-            _npcRef.transform.position = transform.position;
+            GameObject npc = Instantiate(_npcToSpawn) as GameObject;
+            npc.transform.position = transform.position;
         });
     }
 }

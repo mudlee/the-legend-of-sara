@@ -55,7 +55,6 @@ public class MenuHandler : MonoBehaviour {
         });
 
         _restartButton.onClick.AddListener(() => {
-            SetActive(false);
             _gameManager.Restart();
         });
     }

@@ -36,7 +36,7 @@ public class NPCHandler : MonoBehaviour
     // FIRE
     private float _lastFireTime = 0;
 
-    private void Start()
+    private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
@@ -53,6 +53,10 @@ public class NPCHandler : MonoBehaviour
         InvokeRepeating("Scream", Random.Range(2f, 10f), Random.Range(3f, 5f));
 
         EventManager.StartListening(EventManager.Event.PLAYER_DIED, () => {
+            Destroy(this.gameObject);
+        });
+
+        EventManager.StartListening(EventManager.Event.RESET_GAME, () => {
             Destroy(this.gameObject);
         });
     }

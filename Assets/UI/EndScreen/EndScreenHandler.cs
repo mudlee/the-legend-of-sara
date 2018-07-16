@@ -14,8 +14,6 @@ public class EndScreenHandler : MonoBehaviour {
         foreach (Button button in _restartButtons)
         {
             button.onClick.AddListener(()=> {
-                _won.SetActive(false);
-                _lost.SetActive(false);
                 _gameManager.Restart();
             });
         }
@@ -30,6 +28,12 @@ public class EndScreenHandler : MonoBehaviour {
                 #endif
             });
         }
+    }
+
+    public void HideAll()
+    {
+        _won.SetActive(false);
+        _lost.SetActive(false);
     }
 
     public void ShowWon()

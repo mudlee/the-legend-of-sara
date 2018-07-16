@@ -18,7 +18,6 @@ public class CommandPromptHandler : MonoBehaviour {
 
     public void Activate()
     {
-        Debug.Log("Activating command prompt");
         _active = true;
         _text.text = "_";
         gameObject.SetActive(true);
@@ -26,7 +25,6 @@ public class CommandPromptHandler : MonoBehaviour {
 
     public void Deactivate()
     {
-        Debug.Log("Deactivating command prompt");
         _text.text = "_";
         _active = false;
         gameObject.SetActive(false);
@@ -74,7 +72,8 @@ public class CommandPromptHandler : MonoBehaviour {
         {
             return;
         }
-        print(string.Format("Running command: '{0}'",command));
+
+        Deactivate();
         _gameManager.RunCommand(command);
     }
 }

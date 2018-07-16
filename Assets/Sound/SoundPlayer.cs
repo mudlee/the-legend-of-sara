@@ -103,7 +103,6 @@ public class SoundPlayer : MonoBehaviour
 
         foreach (SoundInfo info in _sounds)
         {
-            Debug.Log(string.Format("Loading sound: {0}", info.sound.ToString()));
             _map.Add(info.sound, info);
         }
 
