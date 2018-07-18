@@ -63,4 +63,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 440093b9278caff4484ec8c5d839f743, type: 2}
   - {fileID: 11400000, guid: 3d10573ec2f934a4c9cc9d88b6171503, type: 2}
   - {fileID: 11400000, guid: 7b8aac96bed53304dbd5ed005f423c8a, type: 2}
+  - {fileID: 11400000, guid: 6b783263fe2c7a741a2b80af92f95b6c, type: 2}
+  - {fileID: 11400000, guid: 6db8462f28670f6459719a5099c49dba, type: 2}
+  - {fileID: 11400000, guid: c466550b910f6624c80f9ca0d67ddfef, type: 2}
+  - {fileID: 11400000, guid: 5b311dd8a2803994789811872e7f2a50, type: 2}
   _audioSourceQueueSize: 10

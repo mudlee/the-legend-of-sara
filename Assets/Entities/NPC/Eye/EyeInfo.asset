@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f3bb438d07108478910a3da8db7d40, type: 3}
+  m_Name: EyeInfo
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 11400000, guid: 6b783263fe2c7a741a2b80af92f95b6c, type: 2}
+  - {fileID: 11400000, guid: 6db8462f28670f6459719a5099c49dba, type: 2}
+  deadSound: {fileID: 11400000, guid: c466550b910f6624c80f9ca0d67ddfef, type: 2}
+  fireSound: {fileID: 11400000, guid: 5b311dd8a2803994789811872e7f2a50, type: 2}
+  walkLeft: {fileID: 7400000, guid: bb89d92a5312ad84db3786647e61cb34, type: 2}
+  walkRight: {fileID: 7400000, guid: 1051c5be6f3b79f4d843d2633a61c29c, type: 2}
+  walkTop: {fileID: 7400000, guid: 49a3c6cc3e3bf614ab95c4c102132190, type: 2}
+  walkBottom: {fileID: 7400000, guid: 724a144bca35fba47bcc5f58cec6c7d4, type: 2}
+  projectile: {fileID: 1233222523962516, guid: 9d9d41e404eba4b4dbf3787e6d5a4153, type: 2}

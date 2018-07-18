@@ -19,4 +19,9 @@
     UNDEAD_KING_10,
     UNDEAD_KING_DIE,
     UNDAED_KING_FIRE,
+
+    EYE_1,
+    EYE_2,
+    EYE_DIED,
+    EYE_FIRE
 }

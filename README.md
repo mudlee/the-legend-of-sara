@@ -33,6 +33,7 @@ https://www.dafont.com/windows-command-prompt.font
 ## NPC
 
 - Undead King: https://opengameart.org/content/undead-king
+- Eye: https://opengameart.org/content/scifi-creature-tileset-mini-32x32-scifi-creature-icons
 
 # License
 The Unlicense

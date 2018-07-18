@@ -12,7 +12,6 @@ public class NPCHandler : MonoBehaviour
     private const int AWARANESS_RADIUS_HIGH = 7;
     private const int AWARANESS_RADIUS_LOW = 10;
     private const float FOLLOW_PLAYER_MOVE_TRESHOLD = 2f;
-    private const int FIRE_RATE = 2;
 
     private enum Direction { LEFT, RIGHT, TOP, BOTTOM, DONT_MOVE };
 
@@ -35,6 +34,7 @@ public class NPCHandler : MonoBehaviour
 
     // FIRE
     private float _lastFireTime = 0;
+    private float _currentFireRate = 2;
 
     private void Awake()
     {
@@ -76,7 +76,7 @@ public class NPCHandler : MonoBehaviour
 
             followPlayer = true;
 
-            if(Time.timeSinceLevelLoad > _lastFireTime + FIRE_RATE)
+            if(Time.timeSinceLevelLoad > _lastFireTime + _currentFireRate)
             {
                 Fire();
             }
@@ -202,10 +202,17 @@ public class NPCHandler : MonoBehaviour
     private void Fire()
     {
         _lastFireTime = Time.timeSinceLevelLoad;
+
+        if(_npcInfo.projectile == null)
+        {
+            return;
+        }
+
         GameObject projectile = Instantiate(_npcInfo.projectile) as GameObject;
         projectile.transform.position = transform.position;
 
         PlaySound(_npcInfo.fireSound);
+        _currentFireRate = Random.Range(1f,4f);
     }
 
     private void PlaySound(SoundInfo sound)

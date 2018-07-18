@@ -116,15 +116,15 @@ public class GameManager : MonoBehaviour {
         _soundPlayer.Play(Sound.GAME_AMBIENT, 3);
 
         EventManager.StartListening(EventManager.Event.ENEMY_ATTENTION_LOST, () => {
-            _soundPlayer.Stop(_heartbeatSoundID);
+            //_soundPlayer.Stop(_heartbeatSoundID);
         });
         EventManager.StartListening(EventManager.Event.ENEMY_ATTENTION_LOW, () => {
-            _soundPlayer.Stop(_heartbeatSoundID);
-            _heartbeatSoundID = _soundPlayer.Play(Sound.HEARTBEAT_SLOW);
+            //_soundPlayer.Stop(_heartbeatSoundID);
+            //_heartbeatSoundID = _soundPlayer.Play(Sound.HEARTBEAT_SLOW);
         });
         EventManager.StartListening(EventManager.Event.ENEMY_ATTENTION_HIGH, () => {
-            _soundPlayer.Stop(_heartbeatSoundID);
-            _heartbeatSoundID = _soundPlayer.Play(Sound.HEARTBEAT_FAST);
+            //_soundPlayer.Stop(_heartbeatSoundID);
+            //_heartbeatSoundID = _soundPlayer.Play(Sound.HEARTBEAT_FAST);
         });
     }
 

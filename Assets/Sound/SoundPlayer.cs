@@ -69,11 +69,21 @@ public class SoundPlayer : MonoBehaviour
 
     public void Stop(int audioSourceID)
     {
+        if(audioSourceID == 0)
+        {
+            return;
+        }
+
         Stop(audioSourceID, null);
     }
 
     public void Stop(int audioSourceID, int? fadeOutTime)
     {
+        if(audioSourceID == 0)
+        {
+            return;
+        }
+
         AudioSource source;
 
         if (!_queue.TryGetValue(audioSourceID, out source))
