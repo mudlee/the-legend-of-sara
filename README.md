@@ -29,11 +29,12 @@ https://www.dafont.com/windows-command-prompt.font
 - Door sound: https://opengameart.org/content/door-open-door-close-set
 - NPC sounds: https://opengameart.org/content/voices-sound-effects-library
 - Heartbeats: https://opengameart.org/content/heartbeat-sounds
+- Spider: https://opengameart.org/content/spider-chattering
 
 ## NPC
 
 - Undead King: https://opengameart.org/content/undead-king
-- Eye: https://opengameart.org/content/scifi-creature-tileset-mini-32x32-scifi-creature-icons
+- Eye, Spider: https://opengameart.org/content/scifi-creature-tileset-mini-32x32-scifi-creature-icons
 
 # License
 The Unlicense

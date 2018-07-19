@@ -49,6 +49,11 @@ public class DoorHandler : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if(collision.gameObject.tag!="Player")
+        {
+            return;
+        }
+
         int index=0;
         _tries.TryGetValue(_door, out index);
 

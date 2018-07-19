@@ -67,4 +67,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6db8462f28670f6459719a5099c49dba, type: 2}
   - {fileID: 11400000, guid: c466550b910f6624c80f9ca0d67ddfef, type: 2}
   - {fileID: 11400000, guid: 5b311dd8a2803994789811872e7f2a50, type: 2}
+  - {fileID: 11400000, guid: f1c39fa9cf4413d4caa8653984e9f93d, type: 2}
+  - {fileID: 11400000, guid: 9ba08fd7e46139c42900fb18d6432e6c, type: 2}
+  - {fileID: 11400000, guid: 966346b51cf739b428ebda135d9ea8b0, type: 2}
   _audioSourceQueueSize: 10

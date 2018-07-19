@@ -30162,7 +30162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aa7812d667ee7f43b18c3c1d632b160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _npcToSpawn: {fileID: 1607561892475118, guid: 5001208ca71c8ad4d8a2a021ffa0bedd,
+  _npcToSpawn: {fileID: 1833150141328736, guid: a8876f03de0a58c43aee56bcc708513a,
     type: 2}
 --- !u!4 &1732474072 stripped
 Transform:

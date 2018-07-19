@@ -11,4 +11,5 @@ public class NPCInfo : ScriptableObject
     public AnimationClip walkTop;
     public AnimationClip walkBottom;
     public GameObject projectile;
+    public float speed = 0.4f;
 }

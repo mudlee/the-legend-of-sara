@@ -23,5 +23,9 @@
     EYE_1,
     EYE_2,
     EYE_DIED,
-    EYE_FIRE
+    EYE_FIRE,
+
+    SPIDER_1,
+    SPIDER_DIED,
+    SPIDER_FIRE,
 }

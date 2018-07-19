@@ -8,7 +8,6 @@
 public class NPCHandler : MonoBehaviour
 {
     // CONSTANTS
-    private const float SPEED = 0.4f;
     private const int AWARANESS_RADIUS_HIGH = 7;
     private const int AWARANESS_RADIUS_LOW = 10;
     private const float FOLLOW_PLAYER_MOVE_TRESHOLD = 2f;
@@ -164,16 +163,16 @@ public class NPCHandler : MonoBehaviour
         switch (_currentDirection)
         {
             case Direction.BOTTOM:
-                _velocity.Set(0, -SPEED);
+                _velocity.Set(0, -_npcInfo.speed);
                 break;
             case Direction.TOP:
-                _velocity.Set(0, SPEED);
+                _velocity.Set(0, _npcInfo.speed);
                 break;
             case Direction.LEFT:
-                _velocity.Set(-SPEED, 0);
+                _velocity.Set(-_npcInfo.speed, 0);
                 break;
             case Direction.RIGHT:
-                _velocity.Set(SPEED, 0);
+                _velocity.Set(_npcInfo.speed, 0);
                 break;
             case Direction.DONT_MOVE:
                 _velocity.Set(0, 0);
