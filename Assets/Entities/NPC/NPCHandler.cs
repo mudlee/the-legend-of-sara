@@ -131,7 +131,6 @@ public class NPCHandler : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print("Collided, "+_currentDirection);
         _collidedDirection = _currentDirection;
         UpdateDirection(Direction.DONT_MOVE);
     }
@@ -156,7 +155,6 @@ public class NPCHandler : MonoBehaviour
 
         if (direction != _collidedDirection)
         {
-            Debug.LogFormat("{0} - {1}",direction, _collidedDirection);
             _remainingMovementTime = (int)Random.Range(200f, 500f);
             _currentDirection = direction;
 

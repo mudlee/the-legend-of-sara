@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 
     private enum GameState { DEFAULT, CONSOLE_OPEN, MENU_ACTIVE, GAME_OVER_ACTIVE, WON_ACTIVE }
 
+    private const int GAME_TIME = 600;
+
     [SerializeField] Transform _playerSpawnPosition;
     [SerializeField] private Slider _health;
     [SerializeField] private Text _score;
@@ -130,6 +132,8 @@ public class GameManager : MonoBehaviour {
 
     private void Update()
     {
+        _uIHandler.HealthAndScore.UpdateRemainingTime(GAME_TIME-(int)Time.timeSinceLevelLoad);
+
         if (Input.GetKeyUp(KeyCode.Alpha0) && !_uIHandler.CommandPrompt.IsActive())
         {
             _uIHandler.CommandPrompt.Activate();
