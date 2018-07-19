@@ -36,6 +36,9 @@ https://www.dafont.com/windows-command-prompt.font
 - Undead King: https://opengameart.org/content/undead-king
 - Eye, Spider: https://opengameart.org/content/scifi-creature-tileset-mini-32x32-scifi-creature-icons
 
+## Effects
+- Sara hurt: https://opengameart.org/content/animated-particle-effects-2
+
 # License
 The Unlicense
 

@@ -3,6 +3,7 @@
 public class PlayerController : MonoBehaviour {
     private const float SPEED = 2f;
     private Animator _animator;
+    [SerializeField] private Animator _bleedAnimator;
     private Rigidbody2D _rigidbody;
     private bool _moveEnabled = true;
     private SoundPlayer _soundPlayer;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour {
 
     public void Damage(int amount, int slowDown)
     {
+        _bleedAnimator.SetTrigger("Bleed");
         _health -= amount;
         _uIHandler.HealthAndScore.UpdateHealth(_health);
         _slowDownModifier = slowDown;
