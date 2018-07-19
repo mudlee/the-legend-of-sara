@@ -8,8 +8,6 @@
 public class NPCHandler : MonoBehaviour
 {
     // CONSTANTS
-    private const int AWARANESS_RADIUS_HIGH = 7;
-    private const int AWARANESS_RADIUS_LOW = 10;
     private const float FOLLOW_PLAYER_MOVE_TRESHOLD = 2f;
 
     private enum Direction { LEFT, RIGHT, TOP, BOTTOM, DONT_MOVE };
@@ -42,12 +40,15 @@ public class NPCHandler : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
 
-        _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
-        _animatorOverrideController["WalkLeft"] = _npcInfo.walkLeft;
-        _animatorOverrideController["WalkRight"] = _npcInfo.walkRight;
-        _animatorOverrideController["WalkTop"] = _npcInfo.walkTop;
-        _animatorOverrideController["WalkBottom"] = _npcInfo.walkBottom;
-        _animator.runtimeAnimatorController = _animatorOverrideController;
+        if (_npcInfo.movable)
+        {
+            _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
+            _animatorOverrideController["WalkLeft"] = _npcInfo.walkLeft;
+            _animatorOverrideController["WalkRight"] = _npcInfo.walkRight;
+            _animatorOverrideController["WalkTop"] = _npcInfo.walkTop;
+            _animatorOverrideController["WalkBottom"] = _npcInfo.walkBottom;
+            _animator.runtimeAnimatorController = _animatorOverrideController;
+        }
 
         InvokeRepeating("Scream", Random.Range(2f, 10f), Random.Range(3f, 5f));
 
@@ -65,7 +66,7 @@ public class NPCHandler : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _player.transform.position);
         bool followPlayer = false;
 
-        if (distance <= AWARANESS_RADIUS_HIGH)
+        if (distance <= _npcInfo.awaranessRadiusHigh)
         {
             if (NPCHandler._awaranessLevel != AwaranessLevel.HIGH)
             {
@@ -80,7 +81,7 @@ public class NPCHandler : MonoBehaviour
                 Fire();
             }
         }
-        else if (distance <= AWARANESS_RADIUS_LOW)
+        else if (distance <= _npcInfo.awaranessRadiusLow)
         {
             if (NPCHandler._awaranessLevel != AwaranessLevel.LOW)
             {
@@ -130,6 +131,7 @@ public class NPCHandler : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        print("Collided, "+_currentDirection);
         _collidedDirection = _currentDirection;
         UpdateDirection(Direction.DONT_MOVE);
     }
@@ -138,18 +140,23 @@ public class NPCHandler : MonoBehaviour
     {
 #if UNITY_EDITOR
         UnityEditor.Handles.color = Color.yellow;
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, AWARANESS_RADIUS_LOW);
+        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, _npcInfo.awaranessRadiusLow);
 
         UnityEditor.Handles.color = Color.red;
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, AWARANESS_RADIUS_HIGH);
+        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, _npcInfo.awaranessRadiusHigh);
 #endif
     }
 
     private void UpdateDirection(Direction direction)
     {
+        if(_npcInfo.speed == 0)
+        {
+            return;
+        }
+
         if (direction != _collidedDirection)
         {
-            _collidedDirection = null;
+            Debug.LogFormat("{0} - {1}",direction, _collidedDirection);
             _remainingMovementTime = (int)Random.Range(200f, 500f);
             _currentDirection = direction;
 
@@ -192,6 +199,11 @@ public class NPCHandler : MonoBehaviour
 
     private void Scream()
     {
+        if(_npcInfo.sounds.Length==0)
+        {
+            return;
+        }
+
         if(!_audioSource.isPlaying)
         {
             PlaySound(_npcInfo.sounds[Random.Range(0, _npcInfo.sounds.Length - 1)]);
@@ -210,7 +222,11 @@ public class NPCHandler : MonoBehaviour
         GameObject projectile = Instantiate(_npcInfo.projectile) as GameObject;
         projectile.transform.position = transform.position;
 
-        PlaySound(_npcInfo.fireSound);
+        if (_npcInfo.fireSound != null)
+        {
+            PlaySound(_npcInfo.fireSound);
+        }
+        
         _currentFireRate = Random.Range(1f,4f);
     }
 

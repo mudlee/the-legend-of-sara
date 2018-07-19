@@ -11,16 +11,28 @@ public class PlayerController : MonoBehaviour {
     private bool _moving;
     private UIHandler _uIHandler;
     private int _health = 100;
+    private int _slowDownModifier = 0;
 
-    public void Damage(int amount)
+    public void Damage(int amount, int slowDown)
     {
         _health -= amount;
         _uIHandler.HealthAndScore.UpdateHealth(_health);
+        _slowDownModifier = slowDown;
+
+        if(slowDown>0)
+        {
+            Invoke("StopSlowDown",2f);
+        }
 
         if(_health<=0)
         {
             EventManager.TriggerEvent(EventManager.Event.PLAYER_DIED);
         }
+    }
+
+    public void StopSlowDown()
+    {
+        _slowDownModifier = 0;
     }
 
     public void EnableMovement()
@@ -74,7 +86,9 @@ public class PlayerController : MonoBehaviour {
         _animator.SetBool("WalkTop", vertical > 0);
         _animator.SetBool("WalkBottom", vertical < 0);
 
-        _velocity.Set(horizontal * SPEED, vertical * SPEED);
+        float speed = SPEED - SPEED * _slowDownModifier/100;
+
+        _velocity.Set(horizontal * speed, vertical * speed);
         _rigidbody.velocity = _velocity;
 
 

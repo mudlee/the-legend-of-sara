@@ -15,7 +15,7 @@ public class ProjectileHandler : MonoBehaviour {
         PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
         if(playerController != null)
         {
-            playerController.Damage(_projectileInfo.damage);
+            playerController.Damage(_projectileInfo.damage, _projectileInfo.slowDown);
         }
 
         Destroy(this.gameObject);
