@@ -12,7 +12,14 @@ public class PlayerController : MonoBehaviour {
     private bool _moving;
     private UIHandler _uIHandler;
     private int _health = 100;
+    private int _score = 0;
     private int _slowDownModifier = 0;
+
+    public void TreasureFound(int point)
+    {
+        _score += point;
+        _uIHandler.HealthAndScore.UpdateScore(_score);
+    }
 
     public void Damage(int amount, int slowDown)
     {

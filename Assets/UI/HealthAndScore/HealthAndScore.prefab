@@ -433,6 +433,7 @@ MonoBehaviour:
   _slider: {fileID: 114676358565054468}
   _healthBar: {fileID: 114852047936409130}
   _remainingText: {fileID: 114440225800634856}
+  _scoreText: {fileID: 114559993201926296}
 --- !u!114 &114852047936409130
 MonoBehaviour:
   m_ObjectHideFlags: 1

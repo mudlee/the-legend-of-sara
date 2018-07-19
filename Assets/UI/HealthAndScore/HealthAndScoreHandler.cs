@@ -5,6 +5,7 @@ public class HealthAndScoreHandler : MonoBehaviour {
     [SerializeField] private Slider _slider;
     [SerializeField] private Image _healthBar;
     [SerializeField] private Text _remainingText;
+    [SerializeField] private Text _scoreText;
 
     private Color _originalHealth;
     private bool _almostOver = false;
@@ -12,6 +13,11 @@ public class HealthAndScoreHandler : MonoBehaviour {
     private void Start()
     {
         _originalHealth = _healthBar.color;
+    }
+
+    public void UpdateScore(int score)
+    {
+        _scoreText.text = score.ToString();
     }
 
     public void UpdateHealth(int health)
