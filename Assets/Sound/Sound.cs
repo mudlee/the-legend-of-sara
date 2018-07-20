@@ -28,4 +28,6 @@
     SPIDER_1,
     SPIDER_DIED,
     SPIDER_FIRE,
+
+    TREASURE_PICKUP,
 }

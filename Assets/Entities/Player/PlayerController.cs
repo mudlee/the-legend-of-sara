@@ -15,10 +15,21 @@ public class PlayerController : MonoBehaviour {
     private int _score = 0;
     private int _slowDownModifier = 0;
 
-    public void TreasureFound(int point)
+    public void TreasureFound(int point, int heal)
     {
         _score += point;
         _uIHandler.HealthAndScore.UpdateScore(_score);
+
+        if(heal>0)
+        {
+            _health += heal;
+            if (_health > 100)
+            {
+                _health = 100;
+            }
+
+            _uIHandler.HealthAndScore.UpdateHealth(_health);
+        }
     }
 
     public void Damage(int amount, int slowDown)

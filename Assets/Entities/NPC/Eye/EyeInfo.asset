@@ -21,3 +21,7 @@ MonoBehaviour:
   walkTop: {fileID: 7400000, guid: 49a3c6cc3e3bf614ab95c4c102132190, type: 2}
   walkBottom: {fileID: 7400000, guid: 724a144bca35fba47bcc5f58cec6c7d4, type: 2}
   projectile: {fileID: 1233222523962516, guid: 9d9d41e404eba4b4dbf3787e6d5a4153, type: 2}
+  speed: 0.6
+  movable: 1
+  awaranessRadiusLow: 10
+  awaranessRadiusHigh: 7

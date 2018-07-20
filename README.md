@@ -30,11 +30,14 @@ https://www.dafont.com/windows-command-prompt.font
 - NPC sounds: https://opengameart.org/content/voices-sound-effects-library
 - Heartbeats: https://opengameart.org/content/heartbeat-sounds
 - Spider: https://opengameart.org/content/spider-chattering
+- Shadow: https://opengameart.org/content/energy-drain
+- Treasure pickup: https://opengameart.org/content/3-heal-spells
 
 ## NPC
 
 - Undead King: https://opengameart.org/content/undead-king
-- Eye, Spider: https://opengameart.org/content/scifi-creature-tileset-mini-32x32-scifi-creature-icons
+- Eye, Spide, Tentacler: https://opengameart.org/content/scifi-creature-tileset-mini-32x32-scifi-creature-icons
+- Shadow: https://opengameart.org/content/bosses-and-monsters-spritesheets-ars-notoria
 
 ## Effects
 - Sara hurt: https://opengameart.org/content/animated-particle-effects-2
