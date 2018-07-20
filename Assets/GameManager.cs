@@ -150,6 +150,11 @@ public class GameManager : MonoBehaviour {
             }
             else
             {
+                if(_uIHandler.EndScreen.IsActive())
+                {
+                    return;
+                }
+
                 _uIHandler.Menu.SetActive(!_uIHandler.Menu.IsActive());
 
                 if(_uIHandler.Menu.IsActive())

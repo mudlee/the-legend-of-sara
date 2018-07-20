@@ -3,6 +3,7 @@
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
 public class ShadowController : MonoBehaviour {
+    private const int TRIGGER_RADIUS = 2;
     private GameObject _player;
     private AudioSource _audioSource;
     private Animator _animator;
@@ -19,7 +20,7 @@ public class ShadowController : MonoBehaviour {
     {
 #if UNITY_EDITOR
         UnityEditor.Handles.color = Color.red;
-        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, 3);
+        UnityEditor.Handles.DrawWireDisc(transform.position, Vector3.back, TRIGGER_RADIUS);
 #endif
     }
 
@@ -30,7 +31,7 @@ public class ShadowController : MonoBehaviour {
         }
 
         float distance = Vector3.Distance(transform.position, _player.transform.position);
-        if (distance < 3)
+        if (distance < TRIGGER_RADIUS)
         {
             _awaken = true;
             _animator.SetTrigger("WakeUp");

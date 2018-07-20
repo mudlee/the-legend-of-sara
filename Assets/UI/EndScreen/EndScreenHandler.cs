@@ -30,6 +30,11 @@ public class EndScreenHandler : MonoBehaviour {
         }
     }
 
+    public bool IsActive()
+    {
+        return _won.activeSelf || _lost.activeSelf;
+    }
+
     public void HideAll()
     {
         _won.SetActive(false);

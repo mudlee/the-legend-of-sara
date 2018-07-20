@@ -16,8 +16,10 @@ public class NPCHandler : MonoBehaviour
     private AudioSource _audioSource;
     private Animator _animator;
     private AnimatorOverrideController _animatorOverrideController;
+    private SoundPlayer _soundPlayer;
     private Rigidbody2D _rigidbody;
     private GameObject _player;
+    private int _health; 
 
     // MOVEMENT
     private Direction _currentDirection;
@@ -33,12 +35,29 @@ public class NPCHandler : MonoBehaviour
     private float _lastFireTime = 0;
     private float _currentFireRate = 2;
 
+    public void Damage(int amount)
+    {
+        _health -= amount;
+        if(_health<=0)
+        {
+            if (_npcInfo.deadSound != null)
+            {
+                _soundPlayer.Play(_npcInfo.deadSound.sound);
+                _player.GetComponent<PlayerController>().NPCKilled(_npcInfo.health);
+            }
+
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Awake()
     {
         _audioSource = GetComponent<AudioSource>();
         _animator = GetComponent<Animator>();
         _rigidbody = GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player");
+        _soundPlayer = FindObjectOfType<SoundPlayer>();
+        _health = _npcInfo.health;
 
         if (_npcInfo.movable)
         {

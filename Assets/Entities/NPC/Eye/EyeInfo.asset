@@ -25,3 +25,4 @@ MonoBehaviour:
   movable: 1
   awaranessRadiusLow: 10
   awaranessRadiusHigh: 7
+  health: 10

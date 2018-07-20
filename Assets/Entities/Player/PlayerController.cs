@@ -2,8 +2,11 @@
 
 public class PlayerController : MonoBehaviour {
     private const float SPEED = 2f;
-    private Animator _animator;
+    private const int FIRE_RATE_LIMIT = 1;
     [SerializeField] private Animator _bleedAnimator;
+    [SerializeField] private GameObject _projectile;
+    
+    private Animator _animator;
     private Rigidbody2D _rigidbody;
     private bool _moveEnabled = true;
     private SoundPlayer _soundPlayer;
@@ -14,6 +17,13 @@ public class PlayerController : MonoBehaviour {
     private int _health = 100;
     private int _score = 0;
     private int _slowDownModifier = 0;
+    private float _lastFireTime = 0;
+
+    public void NPCKilled(int point)
+    {
+        _score += point;
+        _uIHandler.HealthAndScore.UpdateScore(_score);
+    }
 
     public void TreasureFound(int point, int heal)
     {
@@ -98,6 +108,11 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
+        if (Input.GetKeyDown(KeyCode.Space) && Time.timeSinceLevelLoad > _lastFireTime + FIRE_RATE_LIMIT)
+        {
+            Fire();
+        }
+
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
 
@@ -129,4 +144,18 @@ public class PlayerController : MonoBehaviour {
             _soundPlayer?.Stop(_stepSoundAudioSource);
         }
 	}
+
+    private void Fire()
+    {
+        if(_rigidbody.velocity.x == 0 && _rigidbody.velocity.y == 0)
+        {
+            return;
+        }
+
+        _lastFireTime = Time.timeSinceLevelLoad;
+
+        GameObject projectile = Instantiate(_projectile, transform.forward * 20, transform.rotation) as GameObject;
+        projectile.transform.position = transform.position;
+        projectile.GetComponent<Rigidbody2D>().velocity = _velocity.normalized * 10;
+    }
 }
