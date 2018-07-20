@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9f3bb438d07108478910a3da8db7d40, type: 3}
+  m_Name: AndromaliusInfo
+  m_EditorClassIdentifier: 
+  sounds:
+  - {fileID: 11400000, guid: ae89eb9095c349d40b9d7c2ae2ed5348, type: 2}
+  - {fileID: 11400000, guid: e939187ddfca6ec429d5765f005d96c8, type: 2}
+  - {fileID: 11400000, guid: 115e4b05aa84b2247844399c2f1cf6b0, type: 2}
+  deadSound: {fileID: 11400000, guid: aa13017f55f059b44bfa1588f96663bf, type: 2}
+  fireSound: {fileID: 11400000, guid: b10309c3412382d4f91ef541bec7bf92, type: 2}
+  walkLeft: {fileID: 7400000, guid: f623603714a366f4a93570479847c309, type: 2}
+  walkRight: {fileID: 7400000, guid: 4784da9524af6ba4d8f2c6994a0e35af, type: 2}
+  walkTop: {fileID: 7400000, guid: 29b8ff57b41b5cb49843628ec6babb76, type: 2}
+  walkBottom: {fileID: 7400000, guid: 521888e91c344e54ba883eb9e34dfbae, type: 2}
+  projectile: {fileID: 1372572879781528, guid: 30a4c4868d512c944969e180dcba8d04, type: 2}
+  speed: 0.4
+  movable: 1
+  awaranessRadiusLow: 8
+  awaranessRadiusHigh: 6
