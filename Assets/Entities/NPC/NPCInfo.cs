@@ -16,4 +16,5 @@ public class NPCInfo : ScriptableObject
     public int awaranessRadiusLow = 10;
     public int awaranessRadiusHigh = 7;
     public int health;
+    public int healthBarYPadding = 40;
 }

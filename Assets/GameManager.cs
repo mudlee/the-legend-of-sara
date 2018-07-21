@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
     private enum GameState { DEFAULT, CONSOLE_OPEN, MENU_ACTIVE, GAME_OVER_ACTIVE, WON_ACTIVE }
 
     private const int GAME_TIME = 600;
+    private float _timeAtGameStart;
 
     [SerializeField] Transform _playerSpawnPosition;
     [SerializeField] private Slider _health;
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour {
 
     public void Restart()
     {
+        _timeAtGameStart = Time.timeSinceLevelLoad;
+
         EventManager.TriggerEvent(EventManager.Event.RESET_GAME);
         _state = GameState.DEFAULT;
         Cursor.visible = false;
@@ -66,7 +69,7 @@ public class GameManager : MonoBehaviour {
         _state = GameState.DEFAULT;
         _playerController.EnableMovement();
 
-        if (_currentRoom == 2)
+        /*if (_currentRoom == 2)
         {
             if(command == "42")
             {
@@ -80,7 +83,7 @@ public class GameManager : MonoBehaviour {
         else
         {
             _uIHandler.Notification.ShowNotification("Commands are available at specific locations.");
-        }
+        }*/
     }
 
     private void Awake ()
@@ -132,7 +135,8 @@ public class GameManager : MonoBehaviour {
 
     private void Update()
     {
-        _uIHandler.HealthAndScore.UpdateRemainingTime(GAME_TIME-(int)Time.timeSinceLevelLoad);
+        float diff = Time.timeSinceLevelLoad - _timeAtGameStart;
+        _uIHandler.HealthAndScore.UpdateRemainingTime(GAME_TIME - (int)diff);
 
         if (Input.GetKeyUp(KeyCode.Alpha0) && !_uIHandler.CommandPrompt.IsActive())
         {

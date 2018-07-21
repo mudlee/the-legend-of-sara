@@ -64,7 +64,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!58 &58352347651285942
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -205,6 +205,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcInfo: {fileID: 11400000, guid: df9ddf7f1d97a4c428556c90f638e01a, type: 2}
+  _healthBar: {fileID: 114430307717083310, guid: 729d2f1e95134df4ca92aa7b2d06f1aa,
+    type: 2}
 --- !u!212 &212805505890574696
 SpriteRenderer:
   m_ObjectHideFlags: 1

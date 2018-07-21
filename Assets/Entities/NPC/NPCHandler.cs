@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(CircleCollider2D))]
@@ -13,13 +14,16 @@ public class NPCHandler : MonoBehaviour
     private enum Direction { LEFT, RIGHT, TOP, BOTTOM, DONT_MOVE };
 
     [SerializeField] private NPCInfo _npcInfo;
+    [SerializeField] private Slider _healthBar;
     private AudioSource _audioSource;
     private Animator _animator;
     private AnimatorOverrideController _animatorOverrideController;
     private SoundPlayer _soundPlayer;
     private Rigidbody2D _rigidbody;
     private GameObject _player;
-    private int _health; 
+    private int _health;
+    private GameObject _healthCanvas;
+    private Slider _sliderInstance;
 
     // MOVEMENT
     private Direction _currentDirection;
@@ -38,7 +42,9 @@ public class NPCHandler : MonoBehaviour
     public void Damage(int amount)
     {
         _health -= amount;
-        if(_health<=0)
+        _sliderInstance.GetComponent<HealthBar>().UpdateHealth(_health);
+
+        if (_health<=0)
         {
             if (_npcInfo.deadSound != null)
             {
@@ -46,6 +52,7 @@ public class NPCHandler : MonoBehaviour
                 _player.GetComponent<PlayerController>().NPCKilled(_npcInfo.health);
             }
 
+            Destroy(_sliderInstance.gameObject);
             Destroy(this.gameObject);
         }
     }
@@ -58,6 +65,12 @@ public class NPCHandler : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _soundPlayer = FindObjectOfType<SoundPlayer>();
         _health = _npcInfo.health;
+        _healthCanvas = GameObject.Find("NPCHealthCanvas");
+
+        _sliderInstance = Instantiate(_healthBar, gameObject.transform.position, Quaternion.identity) as Slider;
+        _sliderInstance.gameObject.transform.SetParent(_healthCanvas.transform, false);
+        _sliderInstance.GetComponent<HealthBar>()._enemy = gameObject;
+        _sliderInstance.GetComponent<HealthBar>()._yPadding = _npcInfo.healthBarYPadding;
 
         if (_npcInfo.movable)
         {

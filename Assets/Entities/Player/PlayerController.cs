@@ -2,7 +2,7 @@
 
 public class PlayerController : MonoBehaviour {
     private const float SPEED = 2f;
-    private const int FIRE_RATE_LIMIT = 1;
+    private const float FIRE_RATE_LIMIT = 0.5f;
     [SerializeField] private Animator _bleedAnimator;
     [SerializeField] private GameObject _projectile;
     
@@ -97,7 +97,9 @@ public class PlayerController : MonoBehaviour {
 
         EventManager.StartListening(EventManager.Event.RESET_GAME, () => {
             _health = 100;
+            _score = 0;
             _uIHandler.HealthAndScore.UpdateHealth(_health);
+            _uIHandler.HealthAndScore.UpdateScore(_score);
         });
     }
 

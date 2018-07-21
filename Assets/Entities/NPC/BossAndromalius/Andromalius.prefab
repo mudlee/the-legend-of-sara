@@ -86,7 +86,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -271,6 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcInfo: {fileID: 11400000, guid: f8747c99e008647488d071268f0b5870, type: 2}
+  _healthBar: {fileID: 114430307717083310, guid: 729d2f1e95134df4ca92aa7b2d06f1aa,
+    type: 2}
 --- !u!212 &212215952663631856
 SpriteRenderer:
   m_ObjectHideFlags: 1

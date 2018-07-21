@@ -14,4 +14,4 @@ MonoBehaviour:
   sound: 0
   clip: {fileID: 8300000, guid: 3acf56e29ccb3ab4bac97bd591f4ffc1, type: 3}
   loop: 1
-  volume: 0.5
+  volume: 0.3

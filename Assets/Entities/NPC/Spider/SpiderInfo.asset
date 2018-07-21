@@ -25,3 +25,4 @@ MonoBehaviour:
   awaranessRadiusLow: 11
   awaranessRadiusHigh: 6
   health: 20
+  healthBarYPadding: 30
