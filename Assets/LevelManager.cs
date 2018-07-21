@@ -37,6 +37,21 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public static void LoadMenu()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadStory()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    public void LoadCredits()
+    {
+        SceneManager.LoadScene(4);
+    }
+
     public void LoadNextLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
