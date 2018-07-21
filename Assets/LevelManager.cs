@@ -32,7 +32,7 @@ public class LevelManager : MonoBehaviour
             case (int)SceneIndex.MENU:
                 break;
             case (int)SceneIndex.LEVEL_1:
-                soundPlayer.Stop(LevelManager.MENU_AMBIENT_SOUND_ID, 3);
+                soundPlayer?.Stop(LevelManager.MENU_AMBIENT_SOUND_ID, 3);
                 break;
         }
     }

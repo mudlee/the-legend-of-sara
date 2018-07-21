@@ -12,17 +12,26 @@ public class GameManager : MonoBehaviour {
     [SerializeField] Transform _playerSpawnPosition;
     [SerializeField] private Slider _health;
     [SerializeField] private Text _score;
+    [SerializeField] private GameObject _treasures;
+
     private GameObject _player;
     private PlayerController _playerController;
     private UIHandler _uIHandler;
     private SoundPlayer _soundPlayer;
     private int _currentRoom = 0;
     private int _heartbeatSoundID;
-    private GameState _state; 
+    private GameState _state;
+    private GameObject _treasuresInstance;
 
     public void Restart()
     {
         _timeAtGameStart = Time.timeSinceLevelLoad;
+        if(_treasuresInstance != null)
+        {
+            Destroy(_treasuresInstance);
+        }
+
+        _treasuresInstance = Instantiate(_treasures) as GameObject;
 
         EventManager.TriggerEvent(EventManager.Event.RESET_GAME);
         _state = GameState.DEFAULT;
@@ -110,7 +119,7 @@ public class GameManager : MonoBehaviour {
         _playerController = _player.GetComponent<PlayerController>();
         _soundPlayer = FindObjectOfType<SoundPlayer>();
 
-        _uIHandler = GameObject.FindObjectOfType<UIHandler>();
+        _uIHandler = FindObjectOfType<UIHandler>();
         _uIHandler.Tutorial.SetActiveFor(5);
         RenderSettings.ambientLight = Color.black;
     }
@@ -118,7 +127,7 @@ public class GameManager : MonoBehaviour {
     private void Start()
     {
         Restart();
-        _soundPlayer.Play(Sound.GAME_AMBIENT, 3);
+        _soundPlayer?.Play(Sound.GAME_AMBIENT, 3);
 
         EventManager.StartListening(EventManager.Event.ENEMY_ATTENTION_LOST, () => {
             //_soundPlayer.Stop(_heartbeatSoundID);

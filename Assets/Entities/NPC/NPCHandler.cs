@@ -89,6 +89,7 @@ public class NPCHandler : MonoBehaviour
         });
 
         EventManager.StartListening(EventManager.Event.RESET_GAME, () => {
+            Destroy(_sliderInstance.gameObject);
             Destroy(this.gameObject);
         });
     }
