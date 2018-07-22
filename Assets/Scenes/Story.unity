@@ -252,7 +252,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '"Reach the exit in ten minutes, with at least 600 points worth treasure,
+  m_Text: '"Reach the exit in ten minutes, with at least 1000 points worth treasure,
     or you will DIE!"'
 --- !u!222 &535865211
 CanvasRenderer:

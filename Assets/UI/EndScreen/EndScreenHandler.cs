@@ -6,6 +6,7 @@ public class EndScreenHandler : MonoBehaviour {
     [SerializeField] private GameObject _lost;
     [SerializeField] private Button[] _restartButtons;
     [SerializeField] private Button[] _quitButtons;
+    [SerializeField] private Text _scoreText;
     
     private void Awake()
     {
@@ -43,6 +44,8 @@ public class EndScreenHandler : MonoBehaviour {
 
     public void ShowWon()
     {
+        int score = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>()._score;
+        _scoreText.text = "SCORE: " + score.ToString();
         _won.SetActive(true);
     }
 

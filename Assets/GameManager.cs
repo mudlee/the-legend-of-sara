@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     public enum RoomBorderTrigger { TRIGGER1, TRIGGER2, TRIGGER3, TRIGGER4, TRIGGER5, TRIGGER6 }
-
-    private enum GameState { DEFAULT, CONSOLE_OPEN, MENU_ACTIVE, GAME_OVER_ACTIVE, WON_ACTIVE }
+    public enum GameState { DEFAULT, CONSOLE_OPEN, MENU_ACTIVE, GAME_OVER_ACTIVE, WON_ACTIVE }
+    public GameState _state;
 
     private const int GAME_TIME = 600;
     private float _timeAtGameStart;
@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour {
     private SoundPlayer _soundPlayer;
     private int _currentRoom = 0;
     private int _heartbeatSoundID;
-    private GameState _state;
     private GameObject _treasuresInstance;
 
     public void Restart()
@@ -98,21 +97,18 @@ public class GameManager : MonoBehaviour {
     private void Awake ()
     {
         EventManager.StartListening(EventManager.Event.PLAYER_REACHED_EXIT, () => {
-            _state = GameState.WON_ACTIVE;
-            _uIHandler.CommandPrompt.Deactivate();
-            _uIHandler.Menu.SetActive(false);
-            _playerController.DisableMovement();
-            _uIHandler.EndScreen.ShowWon();
-            Cursor.visible = true;
+            if (_playerController._score >= 10)
+            {
+                Won();
+            }
+            else
+            {
+                GameOver();
+            }
         });
 
         EventManager.StartListening(EventManager.Event.PLAYER_DIED, () => {
-            _state = GameState.GAME_OVER_ACTIVE;
-            _uIHandler.CommandPrompt.Deactivate();
-            _uIHandler.Menu.SetActive(false);
-            _playerController.DisableMovement();
-            _uIHandler.EndScreen.ShowLost();
-            Cursor.visible = true;
+            GameOver();
         });
 
         _player = GameObject.FindGameObjectWithTag("Player");
@@ -122,6 +118,26 @@ public class GameManager : MonoBehaviour {
         _uIHandler = FindObjectOfType<UIHandler>();
         _uIHandler.Tutorial.SetActiveFor(5);
         RenderSettings.ambientLight = Color.black;
+    }
+    
+    private void Won()
+    {
+        _state = GameState.WON_ACTIVE;
+        _uIHandler.CommandPrompt.Deactivate();
+        _uIHandler.Menu.SetActive(false);
+        _playerController.DisableMovement();
+        _uIHandler.EndScreen.ShowWon();
+        Cursor.visible = true;
+    }
+
+    private void GameOver()
+    {
+        _state = GameState.GAME_OVER_ACTIVE;
+        _uIHandler.CommandPrompt.Deactivate();
+        _uIHandler.Menu.SetActive(false);
+        _playerController.DisableMovement();
+        _uIHandler.EndScreen.ShowLost();
+        Cursor.visible = true;
     }
 
     private void Start()
@@ -145,13 +161,22 @@ public class GameManager : MonoBehaviour {
     private void Update()
     {
         float diff = Time.timeSinceLevelLoad - _timeAtGameStart;
-        _uIHandler.HealthAndScore.UpdateRemainingTime(GAME_TIME - (int)diff);
+        int remaining = GAME_TIME - (int)diff;
+
+        if(remaining <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            _uIHandler.HealthAndScore.UpdateRemainingTime(remaining);
+        }
 
         if (Input.GetKeyUp(KeyCode.Alpha0) && !_uIHandler.CommandPrompt.IsActive())
         {
-            _uIHandler.CommandPrompt.Activate();
+            /*_uIHandler.CommandPrompt.Activate();
             _state = GameState.CONSOLE_OPEN;
-            _playerController.DisableMovement();
+            _playerController.DisableMovement();*/
         }
         else if (Input.GetKeyDown(KeyCode.Escape))
         {

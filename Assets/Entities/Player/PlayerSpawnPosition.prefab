@@ -314,7 +314,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df9cd95b981dd564d843d862ca527ede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _score: 0
   _bleedAnimator: {fileID: 95892177364956134}
   _projectile: {fileID: 1148998729441304, guid: 02cb7a55efe7f774781d56fedaefb445,
     type: 2}

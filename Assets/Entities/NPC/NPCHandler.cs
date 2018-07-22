@@ -24,6 +24,7 @@ public class NPCHandler : MonoBehaviour
     private int _health;
     private GameObject _healthCanvas;
     private Slider _sliderInstance;
+    private GameManager _gameManager;
 
     // MOVEMENT
     private Direction _currentDirection;
@@ -66,6 +67,7 @@ public class NPCHandler : MonoBehaviour
         _soundPlayer = FindObjectOfType<SoundPlayer>();
         _health = _npcInfo.health;
         _healthCanvas = GameObject.Find("NPCHealthCanvas");
+        _gameManager = FindObjectOfType<GameManager>();
 
         _sliderInstance = Instantiate(_healthBar, gameObject.transform.position, Quaternion.identity) as Slider;
         _sliderInstance.gameObject.transform.SetParent(_healthCanvas.transform, false);
@@ -96,6 +98,11 @@ public class NPCHandler : MonoBehaviour
 
     private void Update()
     {
+        if(_gameManager._state != GameManager.GameState.DEFAULT)
+        {
+            return;
+        }
+
         float distance = Vector3.Distance(transform.position, _player.transform.position);
         bool followPlayer = false;
 

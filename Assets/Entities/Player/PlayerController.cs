@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    public int _score = 0;
+
     private const float SPEED = 2f;
     private const float FIRE_RATE_LIMIT = 0.5f;
     [SerializeField] private Animator _bleedAnimator;
@@ -15,7 +17,6 @@ public class PlayerController : MonoBehaviour {
     private bool _moving;
     private UIHandler _uIHandler;
     private int _health = 100;
-    private int _score = 0;
     private int _slowDownModifier = 0;
     private float _lastFireTime = 0;
 
